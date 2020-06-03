@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class AI : Enemy
 {
 
-    [SerializeField] private GameObject _target;
+    [SerializeField] public Transform _target;
 
     private NavMeshAgent _agent; 
 
@@ -14,12 +14,6 @@ public class AI : Enemy
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
-        _agent.SetDestination(_target.transform.position);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _agent.SetDestination(_target.position);
     }
 }

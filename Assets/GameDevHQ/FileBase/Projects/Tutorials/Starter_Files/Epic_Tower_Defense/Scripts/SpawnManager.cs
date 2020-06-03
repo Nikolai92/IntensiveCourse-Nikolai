@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManager : MonoSingleton<SpawnManager>
 {
     [SerializeField] private Transform _spawnStart;
-    [SerializeField] private Transform _spawnEnd;
+    [SerializeField] public Transform spawnEnd;
 
     [SerializeField] private GameObject[] _enemies;
 
@@ -17,6 +16,7 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         StartCoroutine(WaveSpawner());
     }
 
@@ -31,6 +31,7 @@ public class SpawnManager : MonoBehaviour
         while (_numberOfEnemies < AmountToSpawn())
         {
             var enemy = Instantiate(_enemies[RandomEnemy()], _spawnStart);
+            enemy.GetComponent<AI>()._target = spawnEnd;
             yield return new WaitForSeconds(_timeBetweenSpawn);
             _numberOfEnemies++;
         }
@@ -46,6 +47,12 @@ public class SpawnManager : MonoBehaviour
     {
         var amountToSpawn = 10 * _currentWave;
         return amountToSpawn;
+    }
+
+    public override void Init()
+    {
+        base.Init();
+        Debug.Log("Wavespawn has started");
     }
 
 
