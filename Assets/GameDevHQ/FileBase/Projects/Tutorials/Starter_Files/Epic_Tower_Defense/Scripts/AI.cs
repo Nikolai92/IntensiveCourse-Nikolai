@@ -3,17 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AI : Enemy
+public abstract class AI : MonoBehaviour
 {
 
-    [SerializeField] public Transform _target;
+    [SerializeField] protected Vector3 _target;
 
-    private NavMeshAgent _agent; 
+
+    protected NavMeshAgent _agent; 
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
+        
+    }
+
+    public void OnEnable()
+    {
+        _target = SpawnManager.Instance.RequestTarget();
+
         _agent = GetComponent<NavMeshAgent>();
-        _agent.SetDestination(_target.position);
+        if (_agent != null)
+        {
+            _agent.SetDestination(_target);
+        }
+    }
+
+    public void OnDisable()
+    {
+        this.transform.position = SpawnManager.Instance.RequestStartPos();
     }
 }

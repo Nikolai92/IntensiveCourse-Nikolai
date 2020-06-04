@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EndRecycler : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         other.gameObject.SetActive(false);
         Debug.Log("IM COLLIDING");

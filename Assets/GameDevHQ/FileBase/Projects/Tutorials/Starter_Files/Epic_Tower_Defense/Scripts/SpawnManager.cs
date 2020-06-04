@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class SpawnManager : MonoSingleton<SpawnManager>
 {
-    [SerializeField] public Transform spawnStart;
-    [SerializeField] public Transform spawnEnd;
+    [SerializeField] private Transform spawnStart;
+    [SerializeField] private Transform spawnEnd;
 
     [SerializeField] private float _timeBetweenSpawn;
     [SerializeField] private int _currentWave;
     [SerializeField] private int _numberOfEnemies;
+    [SerializeField] private int _waveMultiplier = 10;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +25,6 @@ public class SpawnManager : MonoSingleton<SpawnManager>
         if (Input.GetKeyDown(KeyCode.Space))
         {
             var enemy = PoolManager.Instance.RequestEnemy();
-            enemy.GetComponent<AI>()._target = spawnEnd;
         }
     }
 
@@ -31,7 +33,6 @@ public class SpawnManager : MonoSingleton<SpawnManager>
         while (_numberOfEnemies < AmountToSpawn())
         {
             var enemy = PoolManager.Instance.RequestEnemy();
-            enemy.GetComponent<AI>()._target = spawnEnd;
             yield return new WaitForSeconds(_timeBetweenSpawn);
             _numberOfEnemies++;
         }
@@ -39,7 +40,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
 
     private int AmountToSpawn()
     {
-        var amountToSpawn = 10 * _currentWave;
+        var amountToSpawn = _waveMultiplier * _currentWave;
         return amountToSpawn;
     }
 
@@ -47,6 +48,16 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     {
         base.Init();
         Debug.Log("Wavespawn has started");
+    }
+
+    public Vector3 RequestTarget()
+    {
+        return spawnEnd.transform.position;
+    }
+
+    public Vector3 RequestStartPos()
+    {
+        return spawnStart.transform.position;
     }
 
 

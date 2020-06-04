@@ -20,7 +20,7 @@ public class PoolManager : MonoSingleton<PoolManager>
     {
         for (int i = 0; i < amountOfEnemies; i++)
         {
-            GameObject enemy = Instantiate(_enemyPrefab[RandomEnemy()]);
+            GameObject enemy = Instantiate(_enemyPrefab[RandomEnemy()], StartPos(), Quaternion.identity);
             enemy.transform.SetParent(_enemyContainer.transform, false);
             enemy.SetActive(false);
 
@@ -37,12 +37,11 @@ public class PoolManager : MonoSingleton<PoolManager>
             if (enemy.activeInHierarchy == false)
             {
                 enemy.SetActive(true);
-                enemy.transform.position = SpawnManager.Instance.spawnStart.position;
                 return enemy;
             }
         }
 
-        GameObject newEnemy = Instantiate(_enemyPrefab[RandomEnemy()], SpawnManager.Instance.spawnStart);
+        GameObject newEnemy = Instantiate(_enemyPrefab[RandomEnemy()], StartPos(), Quaternion.identity);
         newEnemy.transform.parent = _enemyContainer.transform;
         _enemyPool.Add(newEnemy);
 
@@ -54,4 +53,10 @@ public class PoolManager : MonoSingleton<PoolManager>
         var randomNumber = Random.Range(0, _enemyPrefab.Length);
         return randomNumber;
     }
+
+    private Vector3 StartPos() 
+        {
+        var pos = SpawnManager.Instance.RequestStartPos();
+        return pos;
+        } 
 }
