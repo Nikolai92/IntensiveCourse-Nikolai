@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class SpawnManager : MonoSingleton<SpawnManager>
 {
-    [SerializeField] private Transform _spawnStart;
+    [SerializeField] public Transform spawnStart;
     [SerializeField] public Transform spawnEnd;
-
-    [SerializeField] private GameObject[] _enemies;
 
     [SerializeField] private float _timeBetweenSpawn;
     [SerializeField] private int _currentWave;
@@ -16,33 +14,18 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     // Start is called before the first frame update
     void Start()
     {
-        
         StartCoroutine(WaveSpawner());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private IEnumerator WaveSpawner()
     {
         while (_numberOfEnemies < AmountToSpawn())
         {
-
-            var enemy = GetComponent<PoolManager>().RequestEnemy();
-            //var enemy = Instantiate(_enemies[RandomEnemy()], _spawnStart);
+            var enemy = PoolManager.Instance.RequestEnemy();
             enemy.GetComponent<AI>()._target = spawnEnd;
             yield return new WaitForSeconds(_timeBetweenSpawn);
             _numberOfEnemies++;
         }
-    }
-
-    private int RandomEnemy()
-    {
-        var randomNumber = Random.Range(0, _enemies.Length);
-        return randomNumber;
     }
 
     private int AmountToSpawn()

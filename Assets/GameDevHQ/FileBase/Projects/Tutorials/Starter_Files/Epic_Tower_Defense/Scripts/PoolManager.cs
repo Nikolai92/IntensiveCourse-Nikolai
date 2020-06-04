@@ -11,24 +11,17 @@ public class PoolManager : MonoSingleton<PoolManager>
 
     [SerializeField] private int numberOfEnemies = 10;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _enemyPool = GenerateEnemies(numberOfEnemies);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     List<GameObject> GenerateEnemies(int amountOfEnemies)
     {
         for (int i = 0; i < amountOfEnemies; i++)
         {
-            GameObject enemy = Instantiate(_enemyPrefab[Random.Range(0,_enemyPrefab.Length)]);
-            enemy.transform.parent = _enemyContainer.transform;
+            GameObject enemy = Instantiate(_enemyPrefab[RandomEnemy()]);
+            enemy.transform.SetParent(_enemyContainer.transform, false);
             enemy.SetActive(false);
 
             _enemyPool.Add(enemy);
@@ -44,14 +37,21 @@ public class PoolManager : MonoSingleton<PoolManager>
             if (enemy.activeInHierarchy == false)
             {
                 enemy.SetActive(true);
+                enemy.transform.position = SpawnManager.Instance.spawnStart.position;
                 return enemy;
             }
         }
 
-        GameObject newEnemy = Instantiate(_enemyPrefab[Random.Range(0, _enemyPrefab.Length)]);
+        GameObject newEnemy = Instantiate(_enemyPrefab[RandomEnemy()], SpawnManager.Instance.spawnStart);
         newEnemy.transform.parent = _enemyContainer.transform;
         _enemyPool.Add(newEnemy);
 
         return newEnemy;
+    }
+
+    private int RandomEnemy()
+    {
+        var randomNumber = Random.Range(0, _enemyPrefab.Length);
+        return randomNumber;
     }
 }
