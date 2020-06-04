@@ -29,7 +29,7 @@ public class PoolManager : MonoSingleton<PoolManager>
 
         return _enemyPool;
     }
-
+    
     public GameObject RequestEnemy()
     {
         foreach (var enemy in _enemyPool)

@@ -17,6 +17,15 @@ public class SpawnManager : MonoSingleton<SpawnManager>
         StartCoroutine(WaveSpawner());
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            var enemy = PoolManager.Instance.RequestEnemy();
+            enemy.GetComponent<AI>()._target = spawnEnd;
+        }
+    }
+
     private IEnumerator WaveSpawner()
     {
         while (_numberOfEnemies < AmountToSpawn())
