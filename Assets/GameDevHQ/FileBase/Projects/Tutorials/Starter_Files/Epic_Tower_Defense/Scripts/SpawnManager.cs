@@ -30,7 +30,9 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     {
         while (_numberOfEnemies < AmountToSpawn())
         {
-            var enemy = Instantiate(_enemies[RandomEnemy()], _spawnStart);
+
+            var enemy = GetComponent<PoolManager>().RequestEnemy();
+            //var enemy = Instantiate(_enemies[RandomEnemy()], _spawnStart);
             enemy.GetComponent<AI>()._target = spawnEnd;
             yield return new WaitForSeconds(_timeBetweenSpawn);
             _numberOfEnemies++;
