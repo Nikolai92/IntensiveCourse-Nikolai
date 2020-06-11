@@ -40,19 +40,19 @@ public class CameraController : MonoBehaviour
     {
         if (Input.mousePosition.x < PercentileWidthMin())
         {
-            transform.Translate(Vector3.left * Time.deltaTime);
+            this.transform.Translate(Vector3.left * Time.deltaTime);
         }
         else if (Input.mousePosition.x > PercentileWidthMax())
         {
-            transform.Translate(Vector3.right * Time.deltaTime);
+            this.transform.Translate(Vector3.right * Time.deltaTime);
         }
         else if (Input.mousePosition.y < PercentileHeightMin())
         {
-            transform.Translate(Vector3.down * Time.deltaTime);
+            this.transform.Translate(Vector3.down * Time.deltaTime);
         }
         else if (Input.mousePosition.y > PercentileHeightMax())
         {
-            transform.Translate(Vector3.up * Time.deltaTime);
+            this.transform.Translate(Vector3.up * Time.deltaTime);
         }
     }
 
