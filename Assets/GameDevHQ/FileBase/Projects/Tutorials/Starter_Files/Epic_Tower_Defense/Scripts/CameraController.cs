@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
     {
         MouseCamCtrl();
         CamCtrl();
-        GameCam.fieldOfView = Mathf.Clamp(GameCam.fieldOfView, 10, 50);
+        
     }
 
     private void CamCtrl()
@@ -34,26 +34,31 @@ public class CameraController : MonoBehaviour
 
         //zoom in/out
         GameCam.fieldOfView += Input.mouseScrollDelta.y * _scrollSpeed * Time.deltaTime;
+        GameCam.fieldOfView = Mathf.Clamp(GameCam.fieldOfView, 10, 50);
     }
 
     private void MouseCamCtrl()
     {
+        Vector3 direction = new Vector3();
+
         if (Input.mousePosition.x < PercentileWidthMin())
         {
-            this.transform.Translate(Vector3.left * Time.deltaTime);
+            direction = Vector3.left;
         }
         else if (Input.mousePosition.x > PercentileWidthMax())
         {
-            this.transform.Translate(Vector3.right * Time.deltaTime);
+            direction = Vector3.right;
         }
         else if (Input.mousePosition.y < PercentileHeightMin())
         {
-            this.transform.Translate(Vector3.down * Time.deltaTime);
+            direction = Vector3.back;
         }
         else if (Input.mousePosition.y > PercentileHeightMax())
         {
-            this.transform.Translate(Vector3.up * Time.deltaTime);
+            direction = Vector3.forward;
         }
+
+        this.transform.Translate(direction * Time.deltaTime);
     }
 
     private float PercentileWidthMin()

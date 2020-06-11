@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LocationScript : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem particles;
+    
     public void Start()
     {
         DeactivateParticles();
@@ -19,6 +21,21 @@ public class LocationScript : MonoBehaviour
     {
         TowerPlacement.placeTower -= ActivateParticles;
         TowerPlacement.towerPlaced -= DeactivateParticles;
+    }
+
+    public void OnMouseEnter()
+    {
+        //Go green
+    }
+
+    public void OnMouseDown()
+    {
+        //Check if spot is available
+    }
+
+    public void OnMouseExit()
+    {
+        //Go red
     }
 
     public void ActivateParticles()

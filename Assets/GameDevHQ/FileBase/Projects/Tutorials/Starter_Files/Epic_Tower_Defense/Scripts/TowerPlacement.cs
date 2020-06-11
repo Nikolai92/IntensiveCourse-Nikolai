@@ -8,8 +8,10 @@ public class TowerPlacement : MonoBehaviour
     [SerializeField] private GameObject[] _decoyTowers;
     [SerializeField] private GameObject[] _towers;
 
-    public static Action placeTower;
-    public static Action towerPlaced;
+    public static event Action placeTower;
+    public static event Action towerPlaced;
+
+    private int _towerID;
 
 
     // Start is called before the first frame update
@@ -21,6 +23,12 @@ public class TowerPlacement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            _towerID = 0;
+            //turn on decoy (set active = true)
+        }
+
         MouseCtrl();
 
         
@@ -33,7 +41,7 @@ public class TowerPlacement : MonoBehaviour
 
         if (Physics.Raycast(rayOrigin, out hitInfo))
         {
-            _decoyTowers[0].transform.position = hitInfo.point;
+            _decoyTowers[_towerID].transform.position = hitInfo.point;
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -43,11 +51,15 @@ public class TowerPlacement : MonoBehaviour
                 }
             }
 
-            if (Input.GetMouseButtonDown(0) && (hitInfo.collider.tag == "ValidSpot"))
+            /*if (Input.GetMouseButtonDown(0) && (hitInfo.collider.tag == "ValidSpot"))
             {
                 Instantiate(_decoyTowers[0], hitInfo.collider.transform.position, Quaternion.identity);
-                towerPlaced();
-            }
+
+                if (towerPlaced != null)
+                {
+                    towerPlaced();
+                }
+            }*/
 
         }
     }
