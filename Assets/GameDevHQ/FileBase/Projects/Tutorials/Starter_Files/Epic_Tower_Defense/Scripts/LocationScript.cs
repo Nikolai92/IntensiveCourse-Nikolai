@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class LocationScript : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem particles;
-    
+    [SerializeField] private ParticleSystem _particles;
+    [SerializeField] private GameObject _greenCircle;
+    [SerializeField] private GameObject _redCircle;
+
+
     public void Start()
     {
         DeactivateParticles();
@@ -14,19 +17,25 @@ public class LocationScript : MonoBehaviour
     private void OnEnable()
     {
         TowerPlacement.placeTower += ActivateParticles;
+        TowerPlacement.placeTower += ShowPositionsON;
+        TowerPlacement.placeTower += ShowPositionsOFF;
         TowerPlacement.towerPlaced += DeactivateParticles;
     }
 
     private void OnDisable()
     {
         TowerPlacement.placeTower -= ActivateParticles;
+        TowerPlacement.placeTower -= ShowPositionsON;
+        TowerPlacement.placeTower -= ShowPositionsOFF;
         TowerPlacement.towerPlaced -= DeactivateParticles;
     }
 
     public void OnMouseEnter()
     {
-        //Go green
+        ShowPositionsON();
     }
+
+    
 
     public void OnMouseDown()
     {
@@ -35,16 +44,32 @@ public class LocationScript : MonoBehaviour
 
     public void OnMouseExit()
     {
-        //Go red
+        ShowPositionsOFF();
     }
+
+    
 
     public void ActivateParticles()
     {
-        particles.Play();
+        _particles.Play();
     }
 
     public void DeactivateParticles()
     {
-        particles.Stop();
+        _particles.Stop();
     }
+
+    private void ShowPositionsON()
+    {
+        _greenCircle.SetActive(true);
+        _redCircle.SetActive(false);
+    }
+
+    private void ShowPositionsOFF()
+    {
+        _greenCircle.SetActive(false);
+        _redCircle.SetActive(true);
+    }
+
+
 }
