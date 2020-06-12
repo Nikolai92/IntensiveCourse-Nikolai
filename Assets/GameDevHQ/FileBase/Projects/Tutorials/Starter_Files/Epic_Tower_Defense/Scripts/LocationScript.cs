@@ -8,43 +8,43 @@ public class LocationScript : MonoBehaviour
     [SerializeField] private GameObject _greenCircle;
     [SerializeField] private GameObject _redCircle;
 
+    private Color transparentColor = Color.red;
 
     public void Start()
     {
+        transparentColor.a = 0f * Time.deltaTime;
         DeactivateParticles();
     }
 
     private void OnEnable()
     {
         TowerPlacement.placeTower += ActivateParticles;
-        TowerPlacement.placeTower += ShowPositionsON;
-        TowerPlacement.placeTower += ShowPositionsOFF;
         TowerPlacement.towerPlaced += DeactivateParticles;
     }
 
     private void OnDisable()
     {
         TowerPlacement.placeTower -= ActivateParticles;
-        TowerPlacement.placeTower -= ShowPositionsON;
-        TowerPlacement.placeTower -= ShowPositionsOFF;
         TowerPlacement.towerPlaced -= DeactivateParticles;
     }
 
     public void OnMouseEnter()
     {
-        ShowPositionsON();
+        _greenCircle.gameObject.SetActive(true);
+        _redCircle.gameObject.SetActive(false);
+        
     }
-
-    
 
     public void OnMouseDown()
     {
+
         //Check if spot is available
     }
 
     public void OnMouseExit()
     {
-        ShowPositionsOFF();
+        _greenCircle.gameObject.SetActive(false);
+        _redCircle.gameObject.SetActive(true);   
     }
 
     
@@ -58,18 +58,4 @@ public class LocationScript : MonoBehaviour
     {
         _particles.Stop();
     }
-
-    private void ShowPositionsON()
-    {
-        _greenCircle.SetActive(true);
-        _redCircle.SetActive(false);
-    }
-
-    private void ShowPositionsOFF()
-    {
-        _greenCircle.SetActive(false);
-        _redCircle.SetActive(true);
-    }
-
-
 }

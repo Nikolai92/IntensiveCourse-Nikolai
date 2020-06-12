@@ -77,19 +77,24 @@ public class TowerPlacement : MonoBehaviour
         }
 
         if (Physics.Raycast(rayOrigin, out hitInfo))
+        {
+            _decoyTowers[_towerID].transform.position = hitInfo.point;
+
+            if (Input.GetMouseButtonDown(0) && (hitInfo.collider.tag == "ValidSpot") && _canPlaceTower)
             {
-                _decoyTowers[_towerID].transform.position = hitInfo.point;
+                Instantiate(_towers[_towerID], hitInfo.collider.transform.position, Quaternion.identity);
+                _canPlaceTower = false;
 
-                if (Input.GetMouseButtonDown(0) && (hitInfo.collider.tag == "ValidSpot") && _canPlaceTower)
+                if (towerPlaced != null)
                 {
-                    Instantiate(_towers[_towerID], hitInfo.collider.transform.position, Quaternion.identity);
-                    _canPlaceTower = false;
+                    towerPlaced();
+                }                 
+            }
+        }    
+    }
 
-                    if (towerPlaced != null)
-                    {
-                        towerPlaced();
-                    }                 
-                }
-            }    
+    public void PlaceTower(LocationScript spot)
+    {
+        //Instantiate(_towers[_towerID], spot, Quaternion.identity);
     }
 }
