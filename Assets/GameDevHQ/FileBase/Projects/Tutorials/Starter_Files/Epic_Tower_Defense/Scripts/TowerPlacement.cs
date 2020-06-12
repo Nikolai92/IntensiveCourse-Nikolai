@@ -12,6 +12,7 @@ public class TowerPlacement : MonoBehaviour
     public static event Action towerPlaced;
 
     private int _towerID;
+    private bool _canPlaceTower = false;
 
 
     // Start is called before the first frame update
@@ -29,6 +30,8 @@ public class TowerPlacement : MonoBehaviour
             _decoyTowers[1].gameObject.SetActive(false);
             _decoyTowers[_towerID].gameObject.SetActive(true);
 
+            _canPlaceTower = true;
+
             if (placeTower != null)
             {
                 placeTower();
@@ -41,6 +44,8 @@ public class TowerPlacement : MonoBehaviour
             _towerID = 1;
             _decoyTowers[0].gameObject.SetActive(false);
             _decoyTowers[_towerID].gameObject.SetActive(true);
+
+            _canPlaceTower = true;
 
             if (placeTower != null)
             {
@@ -56,33 +61,35 @@ public class TowerPlacement : MonoBehaviour
 
     private void MouseCtrl()
     {
-            Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitInfo;
-
-            if (Physics.Raycast(rayOrigin, out hitInfo))
-            {
-                _decoyTowers[_towerID].transform.position = hitInfo.point;
-
-                if (Input.GetMouseButtonDown(0) && (hitInfo.collider.tag == "ValidSpot"))
-                {
-                    Instantiate(_towers[_towerID], hitInfo.collider.transform.position, Quaternion.identity);
-
-                    if (towerPlaced != null)
-                    {
-                        towerPlaced();
-                    }
-                }
-            }
-        
+        Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
 
         if (Input.GetMouseButtonDown(1))
         {
             _decoyTowers[_towerID].gameObject.SetActive(false);
+            _canPlaceTower = false;
+
             if (towerPlaced != null)
             {
                 towerPlaced();
             }
             return;
         }
+
+        if (Physics.Raycast(rayOrigin, out hitInfo))
+            {
+                _decoyTowers[_towerID].transform.position = hitInfo.point;
+
+                if (Input.GetMouseButtonDown(0) && (hitInfo.collider.tag == "ValidSpot") && _canPlaceTower)
+                {
+                    Instantiate(_towers[_towerID], hitInfo.collider.transform.position, Quaternion.identity);
+                    _canPlaceTower = false;
+
+                    if (towerPlaced != null)
+                    {
+                        towerPlaced();
+                    }                 
+                }
+            }    
     }
 }

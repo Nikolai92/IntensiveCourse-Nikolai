@@ -25,7 +25,7 @@ namespace GameDevHQ.FileBase.Missle_Launcher
         private float _destroyTime = 10.0f; //how long till the rockets get cleaned up
         private bool _launched; //bool to check if we launched the rockets
 
-        public int WarFundsRequired { get; set; } = 150;
+        [SerializeField] public int WarFundsRequired { get; set; } = 150;
 
         private void Update()
         {

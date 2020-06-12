@@ -29,7 +29,7 @@ namespace GameDevHQ.FileBase.Gatling_Gun
         private AudioSource _audioSource; //reference to the audio source component
         private bool _startWeaponNoise = true;
 
-        public int WarFundsRequired { get; set; } = 50;
+        [SerializeField] public int WarFundsRequired { get; set; } = 50;
 
         // Use this for initialization
         void Start()
