@@ -30,8 +30,6 @@ public class LocationScript : MonoBehaviour
 
     public void OnMouseDown()
     {
-        
-
         //Check if spot is available
     }
 
@@ -42,11 +40,11 @@ public class LocationScript : MonoBehaviour
 
     public void ActivateParticles()
     {
-        GetComponentInChildren<ParticleSystem>().Play();
+        particles.Play();
     }
 
     public void DeactivateParticles()
     {
-        GetComponentInChildren<ParticleSystem>().Stop();
+        particles.Stop();
     }
 }
