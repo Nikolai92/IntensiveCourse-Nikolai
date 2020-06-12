@@ -19,7 +19,7 @@ namespace GameDevHQ.FileBase.Gatling_Gun
     /// </summary>
 
     [RequireComponent(typeof(AudioSource))] //Require Audio Source component
-    public class Gatling_Gun : MonoBehaviour
+    public class Gatling_Gun : MonoBehaviour, ITower
     {
         private Transform _gunBarrel; //Reference to hold the gun barrel
         public GameObject Muzzle_Flash; //reference to the muzzle flash effect to play when firing
@@ -28,6 +28,8 @@ namespace GameDevHQ.FileBase.Gatling_Gun
 
         private AudioSource _audioSource; //reference to the audio source component
         private bool _startWeaponNoise = true;
+
+        public int WarFundsRequired { get; set; } = 50;
 
         // Use this for initialization
         void Start()
@@ -70,6 +72,8 @@ namespace GameDevHQ.FileBase.Gatling_Gun
             _gunBarrel.transform.Rotate(Vector3.forward * Time.deltaTime * -500.0f); //rotate the gun barrel along the "forward" (z) axis at 500 meters per second
 
         }
+
+        
     }
 
 }

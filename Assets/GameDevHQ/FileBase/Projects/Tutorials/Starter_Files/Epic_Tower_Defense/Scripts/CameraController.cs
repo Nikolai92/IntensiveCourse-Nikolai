@@ -6,15 +6,22 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private int _camSpeed = 100;
     [SerializeField] private int _scrollSpeed = 100;
+    [SerializeField] private int _panSpeed = 100;
 
     [SerializeField] private float _mouseScreenPercentile = .2f;
     [SerializeField] private float _mouseScrollSensitivity = 1f;
 
     [SerializeField] private Camera GameCam;
+    [SerializeField] private float _CamBoundsZmin;
+    [SerializeField] private float _CamBoundsZmax;
+    [SerializeField] private float _CamBoundsXmin;
+    [SerializeField] private float _CamBoundsXmax;
 
     void Start()
     {
         GameCam = Camera.main;
+        
+
     }
 
     void Update()
@@ -29,8 +36,16 @@ public class CameraController : MonoBehaviour
         //WASD/ArrowKeys cam movement
         float _horizontalInput = Input.GetAxis("Horizontal");
         float _verticalInput = Input.GetAxis("Vertical");
-        Vector3 direction = new Vector3(_verticalInput, 0,-_horizontalInput);
+
+        
+        Vector3 direction = new Vector3(_verticalInput, 0, -_horizontalInput);
+
+
+
+
         this.transform.Translate(direction * _camSpeed * Time.deltaTime);
+        
+        
 
         //zoom in/out
         GameCam.fieldOfView += Input.mouseScrollDelta.y * _scrollSpeed * Time.deltaTime;
@@ -43,19 +58,19 @@ public class CameraController : MonoBehaviour
 
         if (Input.mousePosition.x < PercentileWidthMin())
         {
-            direction = Vector3.left;
+            direction = Vector3.forward *_panSpeed * Time.deltaTime;
         }
         else if (Input.mousePosition.x > PercentileWidthMax())
         {
-            direction = Vector3.right;
+            direction = Vector3.back * _panSpeed * Time.deltaTime;
         }
         else if (Input.mousePosition.y < PercentileHeightMin())
         {
-            direction = Vector3.back;
+            direction = Vector3.left * _panSpeed * Time.deltaTime;
         }
         else if (Input.mousePosition.y > PercentileHeightMax())
         {
-            direction = Vector3.forward;
+            direction = Vector3.right * _panSpeed * Time.deltaTime;
         }
 
         this.transform.Translate(direction * Time.deltaTime);

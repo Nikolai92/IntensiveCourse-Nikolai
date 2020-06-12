@@ -30,6 +30,8 @@ public class LocationScript : MonoBehaviour
 
     public void OnMouseDown()
     {
+        //this.gameObject.SetActive(false);
+
         //Check if spot is available
     }
 

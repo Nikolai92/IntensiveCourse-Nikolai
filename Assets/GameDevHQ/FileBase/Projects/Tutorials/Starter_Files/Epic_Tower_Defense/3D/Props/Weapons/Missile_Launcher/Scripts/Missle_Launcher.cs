@@ -5,7 +5,7 @@ using GameDevHQ.FileBase.Missle_Launcher.Missle;
 
 namespace GameDevHQ.FileBase.Missle_Launcher
 {
-    public class Missle_Launcher : MonoBehaviour
+    public class Missle_Launcher : MonoBehaviour, ITower
     {
         [SerializeField]
         private GameObject _missilePrefab; //holds the missle gameobject to clone
@@ -24,6 +24,8 @@ namespace GameDevHQ.FileBase.Missle_Launcher
         [SerializeField]
         private float _destroyTime = 10.0f; //how long till the rockets get cleaned up
         private bool _launched; //bool to check if we launched the rockets
+
+        public int WarFundsRequired { get; set; } = 150;
 
         private void Update()
         {

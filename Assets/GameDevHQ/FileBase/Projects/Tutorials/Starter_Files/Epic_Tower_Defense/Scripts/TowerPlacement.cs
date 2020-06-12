@@ -26,7 +26,27 @@ public class TowerPlacement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _towerID = 0;
+            _decoyTowers[1].gameObject.SetActive(false);
+            _decoyTowers[_towerID].gameObject.SetActive(true);
+
+            if (placeTower != null)
+            {
+                placeTower();
+            }
+
             //turn on decoy (set active = true)
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            _towerID = 1;
+            _decoyTowers[0].gameObject.SetActive(false);
+            _decoyTowers[_towerID].gameObject.SetActive(true);
+
+            if (placeTower != null)
+            {
+                placeTower();
+            }
+            
         }
 
         MouseCtrl();
@@ -36,31 +56,33 @@ public class TowerPlacement : MonoBehaviour
 
     private void MouseCtrl()
     {
-        Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hitInfo;
+            Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo;
 
-        if (Physics.Raycast(rayOrigin, out hitInfo))
-        {
-            _decoyTowers[_towerID].transform.position = hitInfo.point;
-
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Physics.Raycast(rayOrigin, out hitInfo))
             {
-                if (placeTower != null)
+                _decoyTowers[_towerID].transform.position = hitInfo.point;
+
+                if (Input.GetMouseButtonDown(0) && (hitInfo.collider.tag == "ValidSpot"))
                 {
-                    placeTower();
+                    Instantiate(_towers[_towerID], hitInfo.collider.transform.position, Quaternion.identity);
+
+                    if (towerPlaced != null)
+                    {
+                        towerPlaced();
+                    }
                 }
             }
+        
 
-            /*if (Input.GetMouseButtonDown(0) && (hitInfo.collider.tag == "ValidSpot"))
+        if (Input.GetMouseButtonDown(1))
+        {
+            _decoyTowers[_towerID].gameObject.SetActive(false);
+            if (towerPlaced != null)
             {
-                Instantiate(_decoyTowers[0], hitInfo.collider.transform.position, Quaternion.identity);
-
-                if (towerPlaced != null)
-                {
-                    towerPlaced();
-                }
-            }*/
-
+                towerPlaced();
+            }
+            return;
         }
     }
 }
