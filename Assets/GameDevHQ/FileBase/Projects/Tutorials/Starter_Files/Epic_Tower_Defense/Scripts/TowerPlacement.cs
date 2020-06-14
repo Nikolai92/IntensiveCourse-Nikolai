@@ -81,13 +81,31 @@ public class TowerPlacement : MonoBehaviour
     public void PlaceTower(LocationScript pos)
     {
         {
-            Instantiate(_towers[_towerID], pos.gameObject.transform.position, Quaternion.identity);
-            _canPlaceTower = false;
+            ITower obj = _towers[_towerID].GetComponent<ITower>();
+
+            bool check = CurrencyManager.Instance.HaveFunds(obj.WarFundsRequired);
+
+            if (check == true)
+            {
+                Instantiate(_towers[_towerID], pos.gameObject.transform.position, Quaternion.identity);
+                _canPlaceTower = false;
+            }
+
+            else
+            {
+                Debug.Log("Not enough warfunds");
+                return;
+            }
+
+            if (obj != null)
+            {
+                CurrencyManager.Instance.PayTower(obj.WarFundsRequired);
+            }
 
             if (towerPlaced != null)
             {
                 towerPlaced();
-            }
+            }       
         }
     }
 

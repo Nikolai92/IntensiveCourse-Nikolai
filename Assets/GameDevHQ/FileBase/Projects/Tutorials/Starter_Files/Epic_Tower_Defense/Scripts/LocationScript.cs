@@ -47,9 +47,6 @@ public class LocationScript : MonoBehaviour
             tower.PlaceTower(this);
             _towerHasBeenPlaced = true;
         }
-        
-        //TowerPlacement.PlaceTower(this);
-        //Check if spot is available
     }
 
     public void OnMouseExit()
