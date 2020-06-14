@@ -11,13 +11,12 @@ public class LocationScript : MonoBehaviour
 
     [SerializeField] private TowerPlacement tower;
 
-    private Color transparentColor = Color.red;
+    private IEnumerator coroutine;
 
     private bool _towerHasBeenPlaced = false;
 
     public void Start()
     {
-        transparentColor.a = 0f * Time.deltaTime;
         DeactivateParticles();
     }
 
@@ -35,9 +34,18 @@ public class LocationScript : MonoBehaviour
 
     public void OnMouseEnter()
     {
-        _greenCircle.gameObject.SetActive(true);
-        _redCircle.gameObject.SetActive(false);
-        tower.SnapTower(this.gameObject.transform.position);      
+        tower.SnapTower(this.gameObject.transform.position);
+
+        if (_towerHasBeenPlaced == true)
+        {
+            _redCircle.gameObject.SetActive(true);
+        }
+
+        else
+        {
+            _greenCircle.gameObject.SetActive(true);
+            _redCircle.gameObject.SetActive(false);
+        }
     }
 
     public void OnMouseDown()
@@ -53,10 +61,9 @@ public class LocationScript : MonoBehaviour
     {
         _greenCircle.gameObject.SetActive(false);
         _redCircle.gameObject.SetActive(true);
-        //_redCircle.gameObject.GetComponent<Renderer>().material.color.a = 0f;
+        coroutine = WaitAndDisable();
+        StartCoroutine(coroutine);
     }
-
-    
 
     public void ActivateParticles()
     {
@@ -66,5 +73,11 @@ public class LocationScript : MonoBehaviour
     public void DeactivateParticles()
     {
         _particles.Stop();
+    }
+
+    IEnumerator WaitAndDisable()
+    {
+        yield return new WaitForSeconds(1.5f);
+        _redCircle.gameObject.SetActive(false);
     }
 }

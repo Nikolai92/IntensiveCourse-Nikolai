@@ -11472,6 +11472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialWarFunds: 500
   _currentWarFunds: 0
+  haveFunds: 1
 --- !u!4 &1958852338
 Transform:
   m_ObjectHideFlags: 0

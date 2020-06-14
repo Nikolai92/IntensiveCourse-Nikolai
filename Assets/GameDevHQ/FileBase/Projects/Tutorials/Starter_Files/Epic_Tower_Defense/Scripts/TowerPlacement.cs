@@ -85,10 +85,12 @@ public class TowerPlacement : MonoBehaviour
 
             bool check = CurrencyManager.Instance.HaveFunds(obj.WarFundsRequired);
 
-            if (check == true)
+            if ((check == true) && (_canPlaceTower == true))
             {
                 Instantiate(_towers[_towerID], pos.gameObject.transform.position, Quaternion.identity);
                 _canPlaceTower = false;
+
+                _decoyTowers[_towerID].gameObject.SetActive(false);
             }
 
             else
@@ -111,6 +113,6 @@ public class TowerPlacement : MonoBehaviour
 
     public void SnapTower(Vector3 spot)
     {
-        _decoyTowers[_towerID].transform.position = spot;
+        _decoyTowers[_towerID].gameObject.transform.position = spot;
     }
 }
