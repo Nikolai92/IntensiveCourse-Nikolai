@@ -191,6 +191,7 @@ MonoBehaviour:
   _particles: {fileID: 3661036835065814984}
   _greenCircle: {fileID: 3333458961348364041}
   _redCircle: {fileID: 6686252388512683046}
+  tower: {fileID: 0}
 --- !u!1 &6686252388512683046
 GameObject:
   m_ObjectHideFlags: 0

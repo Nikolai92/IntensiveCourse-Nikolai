@@ -20,15 +20,12 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         GameCam = Camera.main;
-        
-
     }
 
     void Update()
     {
         MouseCamCtrl();
-        CamCtrl();
-        
+        CamCtrl();     
     }
 
     private void CamCtrl()
@@ -40,12 +37,12 @@ public class CameraController : MonoBehaviour
         
         Vector3 direction = new Vector3(_verticalInput, 0, -_horizontalInput);
 
-
-
-
         this.transform.Translate(direction * _camSpeed * Time.deltaTime);
-        
-        
+
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, _CamBoundsXmin, _CamBoundsXmax);
+        pos.z = Mathf.Clamp(pos.z, _CamBoundsZmin, _CamBoundsZmax);
+        transform.position = pos;
 
         //zoom in/out
         GameCam.fieldOfView += Input.mouseScrollDelta.y * _scrollSpeed * Time.deltaTime;
@@ -98,10 +95,4 @@ public class CameraController : MonoBehaviour
         float MouseBorderHeight = Screen.height - (_mouseScreenPercentile * Screen.height);
         return MouseBorderHeight;
     }
-
-
-
-
-
-
 }

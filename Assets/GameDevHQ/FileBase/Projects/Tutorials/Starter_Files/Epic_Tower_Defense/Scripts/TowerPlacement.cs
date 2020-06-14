@@ -36,9 +36,8 @@ public class TowerPlacement : MonoBehaviour
             {
                 placeTower();
             }
-
-            //turn on decoy (set active = true)
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             _towerID = 1;
@@ -50,13 +49,10 @@ public class TowerPlacement : MonoBehaviour
             if (placeTower != null)
             {
                 placeTower();
-            }
-            
+            }     
         }
 
-        MouseCtrl();
-
-        
+        MouseCtrl();    
     }
 
     private void MouseCtrl()
@@ -79,22 +75,24 @@ public class TowerPlacement : MonoBehaviour
         if (Physics.Raycast(rayOrigin, out hitInfo))
         {
             _decoyTowers[_towerID].transform.position = hitInfo.point;
-
-            if (Input.GetMouseButtonDown(0) && (hitInfo.collider.tag == "ValidSpot") && _canPlaceTower)
-            {
-                Instantiate(_towers[_towerID], hitInfo.collider.transform.position, Quaternion.identity);
-                _canPlaceTower = false;
-
-                if (towerPlaced != null)
-                {
-                    towerPlaced();
-                }                 
-            }
         }    
     }
 
-    public void PlaceTower(LocationScript spot)
+    public void PlaceTower(LocationScript pos)
     {
-        //Instantiate(_towers[_towerID], spot, Quaternion.identity);
+        {
+            Instantiate(_towers[_towerID], pos.gameObject.transform.position, Quaternion.identity);
+            _canPlaceTower = false;
+
+            if (towerPlaced != null)
+            {
+                towerPlaced();
+            }
+        }
+    }
+
+    public void SnapTower(Vector3 spot)
+    {
+        _decoyTowers[_towerID].transform.position = spot;
     }
 }

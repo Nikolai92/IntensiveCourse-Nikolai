@@ -55,8 +55,8 @@ public class PoolManager : MonoSingleton<PoolManager>
     }
 
     private Vector3 StartPos() 
-        {
+    {
         var pos = SpawnManager.Instance.RequestStartPos();
         return pos;
-        } 
+    } 
 }

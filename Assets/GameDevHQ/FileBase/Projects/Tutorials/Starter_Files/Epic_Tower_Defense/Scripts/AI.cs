@@ -5,9 +5,7 @@ using UnityEngine.AI;
 
 public abstract class AI : MonoBehaviour
 {
-
     [SerializeField] protected Vector3 _target;
-
 
     protected NavMeshAgent _agent; 
 

@@ -59,7 +59,4 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     {
         return spawnStart.transform.position;
     }
-
-
-
 }

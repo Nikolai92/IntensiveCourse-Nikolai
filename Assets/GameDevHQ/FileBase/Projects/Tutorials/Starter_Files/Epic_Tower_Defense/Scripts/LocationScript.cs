@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class LocationScript : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _particles;
     [SerializeField] private GameObject _greenCircle;
     [SerializeField] private GameObject _redCircle;
 
+    [SerializeField] private ParticleSystem _particles;
+
+    [SerializeField] private TowerPlacement tower;
+
     private Color transparentColor = Color.red;
+
+    private bool _towerHasBeenPlaced = false;
 
     public void Start()
     {
@@ -32,19 +37,26 @@ public class LocationScript : MonoBehaviour
     {
         _greenCircle.gameObject.SetActive(true);
         _redCircle.gameObject.SetActive(false);
-        
+        tower.SnapTower(this.gameObject.transform.position);      
     }
 
     public void OnMouseDown()
     {
-
+        if (_towerHasBeenPlaced == false)
+        {
+            tower.PlaceTower(this);
+            _towerHasBeenPlaced = true;
+        }
+        
+        //TowerPlacement.PlaceTower(this);
         //Check if spot is available
     }
 
     public void OnMouseExit()
     {
         _greenCircle.gameObject.SetActive(false);
-        _redCircle.gameObject.SetActive(true);   
+        _redCircle.gameObject.SetActive(true);
+        //_redCircle.gameObject.GetComponent<Renderer>().material.color.a = 0f;
     }
 
     
