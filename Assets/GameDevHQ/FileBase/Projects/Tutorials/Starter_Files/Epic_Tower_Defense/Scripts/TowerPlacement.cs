@@ -13,6 +13,7 @@ public class TowerPlacement : MonoBehaviour
 
     private int _towerID;
     private bool _canPlaceTower = false;
+    private bool _isSnap = false;
 
 
     // Start is called before the first frame update
@@ -72,7 +73,7 @@ public class TowerPlacement : MonoBehaviour
             return;
         }
 
-        if (Physics.Raycast(rayOrigin, out hitInfo))
+        if (Physics.Raycast(rayOrigin, out hitInfo) && _isSnap == false)
         {
             _decoyTowers[_towerID].transform.position = hitInfo.point;
         }    
@@ -113,6 +114,12 @@ public class TowerPlacement : MonoBehaviour
 
     public void SnapTower(Vector3 spot)
     {
+        _isSnap = true;
         _decoyTowers[_towerID].gameObject.transform.position = spot;
+    }
+
+    public void UnSnapTower()
+    {
+        _isSnap = false;
     }
 }

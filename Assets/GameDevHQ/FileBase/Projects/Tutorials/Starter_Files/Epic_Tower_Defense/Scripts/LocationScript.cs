@@ -59,6 +59,7 @@ public class LocationScript : MonoBehaviour
 
     public void OnMouseExit()
     {
+        tower.UnSnapTower();
         _greenCircle.gameObject.SetActive(false);
         _redCircle.gameObject.SetActive(true);
         coroutine = WaitAndDisable();
