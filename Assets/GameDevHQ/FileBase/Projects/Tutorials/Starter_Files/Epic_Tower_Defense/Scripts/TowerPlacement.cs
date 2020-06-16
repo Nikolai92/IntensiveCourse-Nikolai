@@ -7,6 +7,7 @@ public class TowerPlacement : MonoBehaviour
 {
     [SerializeField] private GameObject[] _decoyTowers;
     [SerializeField] private GameObject[] _towers;
+    [SerializeField] private GameObject _towerContainer;
 
     public static event Action placeTower;
     public static event Action towerPlaced;
@@ -88,7 +89,8 @@ public class TowerPlacement : MonoBehaviour
 
             if ((check == true) && (_canPlaceTower == true))
             {
-                Instantiate(_towers[_towerID], pos.gameObject.transform.position, Quaternion.identity);
+                GameObject newTower = Instantiate(_towers[_towerID], pos.gameObject.transform.position, Quaternion.identity);
+                newTower.transform.SetParent(_towerContainer.transform, true);
                 _canPlaceTower = false;
 
                 _decoyTowers[_towerID].gameObject.SetActive(false);

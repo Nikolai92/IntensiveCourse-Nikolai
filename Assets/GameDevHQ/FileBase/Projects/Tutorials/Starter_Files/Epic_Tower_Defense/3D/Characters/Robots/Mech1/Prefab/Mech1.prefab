@@ -1581,7 +1581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33622248b1cbd6a428d413428da264a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
+  _target: {x: 0, y: 0, z: 0}
   _health: 0
   _warFund: 0
 --- !u!136 &-6515685383555603748

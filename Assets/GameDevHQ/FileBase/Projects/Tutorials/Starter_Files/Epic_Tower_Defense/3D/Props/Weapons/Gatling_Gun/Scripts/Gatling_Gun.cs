@@ -28,7 +28,7 @@ namespace GameDevHQ.FileBase.Gatling_Gun
 
         private AudioSource _audioSource; //reference to the audio source component
         private bool _startWeaponNoise = true;
-
+        
         [SerializeField] public int WarFundsRequired { get; set; } = 50;
 
         // Use this for initialization
@@ -65,6 +65,10 @@ namespace GameDevHQ.FileBase.Gatling_Gun
                 _startWeaponNoise = true; //set the start weapon noise value to true
             }
         }
+        private void OnTriggerEnter(Collider other)
+        {
+            Debug.Log("Turret colliding with: " + other);          
+        }
 
         // Method to rotate gun barrel 
         void RotateBarrel() 
@@ -72,5 +76,7 @@ namespace GameDevHQ.FileBase.Gatling_Gun
             _gunBarrel.transform.Rotate(Vector3.forward * Time.deltaTime * -500.0f); //rotate the gun barrel along the "forward" (z) axis at 500 meters per second
 
         }
+
+        
     }
 }

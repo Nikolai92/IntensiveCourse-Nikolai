@@ -23,16 +23,6 @@ public class CurrencyManager : MonoSingleton <CurrencyManager>
 
     public bool HaveFunds(int warfundsReq)
     {
-        if (_currentWarFunds > warfundsReq)
-        {
-            haveFunds = true;
-            return haveFunds;
-        }
-
-        else 
-        {
-            haveFunds = false;
-            return haveFunds;
-        }
+        return _currentWarFunds > warfundsReq;
     }
 }
