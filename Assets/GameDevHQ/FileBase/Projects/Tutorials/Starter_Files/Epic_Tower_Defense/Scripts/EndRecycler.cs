@@ -7,6 +7,5 @@ public class EndRecycler : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         other.gameObject.SetActive(false);
-        Debug.Log("IM COLLIDING");
     }
 }
