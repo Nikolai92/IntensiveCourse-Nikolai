@@ -65,10 +65,6 @@ namespace GameDevHQ.FileBase.Gatling_Gun
                 _startWeaponNoise = true; //set the start weapon noise value to true
             }
         }
-        private void OnTriggerEnter(Collider other)
-        {
-            Debug.Log("Turret colliding with: " + other);          
-        }
 
         // Method to rotate gun barrel 
         void RotateBarrel() 
