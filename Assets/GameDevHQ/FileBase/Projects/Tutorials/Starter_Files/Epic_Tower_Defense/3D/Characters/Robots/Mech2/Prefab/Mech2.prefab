@@ -416,8 +416,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {x: 0, y: 0, z: 0}
-  _health: 0
+  _health: 300
   _warFund: 0
+  animator: {fileID: 95460924271877448}
 --- !u!195 &6309878865886430463
 NavMeshAgent:
   m_ObjectHideFlags: 0

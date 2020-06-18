@@ -27,13 +27,21 @@ namespace GameDevHQ.FileBase.Missle_Launcher
 
         [SerializeField] public int WarFundsRequired { get; set; } = 150;
 
+        private void OnEnable()
+        {
+            Aim.mechHasEntered += Attack;
+            Aim.mechHasExited += StopAttack;
+        }
+
+        private void OnDisable()
+        {
+            Aim.mechHasEntered -= Attack;
+            Aim.mechHasExited -= StopAttack;
+        }
+
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space) && _launched == false) //check for space key and if we launched the rockets
-            {
-                _launched = true; //set the launch bool to true
-                StartCoroutine(FireRocketsRoutine()); //start a coroutine that fires the rockets. 
-            }
+           
         }
 
         IEnumerator FireRocketsRoutine()
@@ -61,6 +69,18 @@ namespace GameDevHQ.FileBase.Missle_Launcher
             }
 
             _launched = false; //set launch bool to false
+        }
+
+        public void Attack()
+        {
+            _launched = true; //set the launch bool to true
+            StartCoroutine(FireRocketsRoutine()); //start a coroutine that fires the rockets.
+        }
+
+        public void StopAttack()
+        {
+            _launched = false;
+            StopCoroutine(FireRocketsRoutine());
         }
     }
 }

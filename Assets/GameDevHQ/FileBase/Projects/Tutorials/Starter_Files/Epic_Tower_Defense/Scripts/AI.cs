@@ -12,11 +12,21 @@ public abstract class AI : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
-        
+        _agent = GetComponent<NavMeshAgent>();
+    }
+    
+    public void StopWalking()
+    {
+        if (_agent != null)
+        {
+            _agent.isStopped = true;
+        }
     }
 
     public void OnEnable()
     {
+        Enemy.Died += StopWalking;
+
         _target = SpawnManager.Instance.RequestTarget();
 
         _agent = GetComponent<NavMeshAgent>();
@@ -28,6 +38,8 @@ public abstract class AI : MonoBehaviour
 
     public void OnDisable()
     {
+        Enemy.Died -= StopWalking;
+
         this.transform.position = SpawnManager.Instance.RequestStartPos();
     }
 }

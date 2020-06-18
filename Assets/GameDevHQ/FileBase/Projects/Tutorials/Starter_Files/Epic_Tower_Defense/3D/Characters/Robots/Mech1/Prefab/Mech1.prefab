@@ -1582,8 +1582,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {x: 0, y: 0, z: 0}
-  _health: 0
+  _health: 100
   _warFund: 0
+  animator: {fileID: 95831276238310704}
 --- !u!136 &-6515685383555603748
 CapsuleCollider:
   m_ObjectHideFlags: 0

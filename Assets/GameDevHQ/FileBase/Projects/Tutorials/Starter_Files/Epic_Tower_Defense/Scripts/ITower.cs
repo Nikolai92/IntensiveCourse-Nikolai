@@ -5,4 +5,6 @@ using UnityEngine;
 public interface ITower
 {
     int WarFundsRequired { get; set; }
+
+    void Attack();
 }

@@ -448,7 +448,7 @@ MonoBehaviour:
   _timeBetweenSpawn: 3
   _currentWave: 1
   _numberOfEnemies: 0
-  _waveMultiplier: 10
+  _waveMultiplier: 1
 --- !u!4 &36188967
 Transform:
   m_ObjectHideFlags: 0
