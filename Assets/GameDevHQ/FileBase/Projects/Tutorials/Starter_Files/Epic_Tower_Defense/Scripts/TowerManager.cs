@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerPlacement : MonoBehaviour
+public class TowerManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] _decoyTowers;
     [SerializeField] private GameObject[] _towers;
@@ -80,7 +80,7 @@ public class TowerPlacement : MonoBehaviour
         }    
     }
 
-    public void PlaceTower(LocationScript pos)
+    public void PlaceTower(LocationManager pos)
     {
         {
             ITower obj = _towers[_towerID].GetComponent<ITower>();

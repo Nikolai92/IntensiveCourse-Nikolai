@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LocationScript : MonoBehaviour
+public class LocationManager : MonoBehaviour
 {
     [SerializeField] private GameObject _greenCircle;
     [SerializeField] private GameObject _redCircle;
 
     [SerializeField] private ParticleSystem _particles;
 
-    [SerializeField] private TowerPlacement tower;
+    [SerializeField] private TowerManager _tower;
 
     private IEnumerator coroutine;
 
@@ -22,19 +22,19 @@ public class LocationScript : MonoBehaviour
 
     private void OnEnable()
     {
-        TowerPlacement.placeTower += ActivateParticles;
-        TowerPlacement.towerPlaced += DeactivateParticles;
+        TowerManager.placeTower += ActivateParticles;
+        TowerManager.towerPlaced += DeactivateParticles;
     }
 
     private void OnDisable()
     {
-        TowerPlacement.placeTower -= ActivateParticles;
-        TowerPlacement.towerPlaced -= DeactivateParticles;
+        TowerManager.placeTower -= ActivateParticles;
+        TowerManager.towerPlaced -= DeactivateParticles;
     }
 
     public void OnMouseEnter()
     {
-        tower.SnapTower(this.gameObject.transform.position);
+        _tower.SnapTower(this.gameObject.transform.position);
 
         if (_towerHasBeenPlaced == true)
         {
@@ -52,14 +52,14 @@ public class LocationScript : MonoBehaviour
     {
         if (_towerHasBeenPlaced == false)
         {
-            tower.PlaceTower(this);
+            _tower.PlaceTower(this);
             _towerHasBeenPlaced = true;
         }
     }
 
     public void OnMouseExit()
     {
-        tower.UnSnapTower();
+        _tower.UnSnapTower();
         _greenCircle.gameObject.SetActive(false);
         _redCircle.gameObject.SetActive(true);
         coroutine = WaitAndDisable();

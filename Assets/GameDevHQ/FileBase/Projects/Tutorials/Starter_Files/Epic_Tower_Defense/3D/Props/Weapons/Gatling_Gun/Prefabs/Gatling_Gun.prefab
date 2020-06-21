@@ -5216,7 +5216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mech: {fileID: 0}
-  _speed: 2
+  _speed: 20
   _objectToRotate: {fileID: 1171837344815624}
 --- !u!1 &1481110104042698
 GameObject:

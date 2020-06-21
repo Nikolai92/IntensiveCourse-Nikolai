@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Enemy : AI
 {
-    [SerializeField] private int _health = 0;
+    [SerializeField] public int _health = 0;
     [SerializeField] private int _warFund = 0;
     [SerializeField] private float _timeToDespawn = 3f;
 
@@ -26,7 +26,10 @@ public class Enemy : AI
     {
         if (_health <= 0)
         {
-            Died();
+            if (Died != null)
+            {
+                Died();
+            }
             animator.SetBool("IsDead", true);
             StartCoroutine(DieAndDespawn());
 

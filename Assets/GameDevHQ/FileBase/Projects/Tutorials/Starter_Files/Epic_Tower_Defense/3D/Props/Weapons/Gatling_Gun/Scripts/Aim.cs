@@ -12,10 +12,12 @@ public class Aim : MonoBehaviour
 
     [SerializeField] private GameObject _objectToRotate;
 
-    [SerializeField] private Queue _enemyQueue = new Queue();
+    [SerializeField] private List<GameObject> _enemyList = new List<GameObject>();
 
     public static event Action mechHasEntered;
     public static event Action mechHasExited;
+
+    private IEnumerator coroutine;
 
 
     // Start is called before the first frame update
@@ -27,34 +29,65 @@ public class Aim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 targetDirection = _mech.position - _objectToRotate.transform.position;
-
-        //transform.rotation = Quaternion.LookRotation(targetDirection);
-
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-
-        _objectToRotate.transform.rotation = Quaternion.Slerp(_objectToRotate.transform.rotation, targetRotation, Time.deltaTime * _speed);
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            _enemyQueue.Enqueue(other.gameObject);
-            _mech = other.gameObject.transform;
-            mechHasEntered();
-            Debug.Log("Turret colliding with: " + other);
+            _enemyList.Add(other.gameObject);
+            
+            AimTarget(_enemyList[0].transform);
+            
+
+            if (mechHasEntered != null)
+            {
+                mechHasEntered();
+            }
         }      
     }
     private void OnTriggerStay(Collider other)
     {
-        //_enemyQueue.Contains.other = other.gameObject.transform;
+        AimTarget(_enemyList[0].transform);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        _enemyQueue.Dequeue();
-        _mech = startingPos;
-        mechHasExited();
+        _enemyList.Remove(other.gameObject);
+
+        if (_enemyList == null)
+        {
+            AimTarget(startingPos);
+        }
+
+        else if (_enemyList != null)
+        {
+            AimTarget(_enemyList[0].transform);
+        }
+        
+
+        if (mechHasExited != null)
+        {
+            mechHasExited();
+        }
     }
+
+    private void AimTarget(Transform target)
+    {
+        Vector3 targetDirection = _enemyList[0].transform.position - _objectToRotate.transform.position;
+
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+
+        _objectToRotate.transform.rotation = Quaternion.Slerp(_objectToRotate.transform.rotation, targetRotation, Time.deltaTime * _speed);
+    }
+
+    /*private void AimTarget(Transform target)
+    {
+        Vector3 targetDirection = _mech.position - _objectToRotate.transform.position;
+
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+
+        _objectToRotate.transform.rotation = Quaternion.Slerp(_objectToRotate.transform.rotation, targetRotation, Time.deltaTime * _speed);
+    }*/
 }

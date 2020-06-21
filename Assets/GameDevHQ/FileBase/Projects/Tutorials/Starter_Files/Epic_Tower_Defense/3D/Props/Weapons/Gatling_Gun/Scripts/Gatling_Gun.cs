@@ -28,9 +28,10 @@ namespace GameDevHQ.FileBase.Gatling_Gun
 
         private AudioSource _audioSource; //reference to the audio source component
         private bool _startWeaponNoise = true;
+
+        [SerializeField] private int _damage = 10; 
         
         [SerializeField] public int WarFundsRequired { get; set; } = 50;
-
 
         private void OnEnable()
         {
@@ -88,6 +89,11 @@ namespace GameDevHQ.FileBase.Gatling_Gun
             Muzzle_Flash.SetActive(false); //turn off muzzle flash particle effect
             _audioSource.Stop(); //stop the sound effect from playing
             _startWeaponNoise = true; //set the start weapon noise value to true
+        }
+
+        public void Damage(int damage)
+        {
+
         }
     }
 }
