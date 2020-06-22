@@ -25,8 +25,6 @@ public abstract class AI : MonoBehaviour
 
     public void OnEnable()
     {
-        Enemy.Died += StopWalking;
-
         _target = SpawnManager.Instance.RequestTarget();
 
         _agent = GetComponent<NavMeshAgent>();
@@ -38,8 +36,6 @@ public abstract class AI : MonoBehaviour
 
     public void OnDisable()
     {
-        Enemy.Died -= StopWalking;
-
         this.transform.position = SpawnManager.Instance.RequestStartPos();
     }
 }

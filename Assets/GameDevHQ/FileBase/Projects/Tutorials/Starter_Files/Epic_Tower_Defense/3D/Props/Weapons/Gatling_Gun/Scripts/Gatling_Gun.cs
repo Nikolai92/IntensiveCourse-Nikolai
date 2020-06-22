@@ -35,14 +35,14 @@ namespace GameDevHQ.FileBase.Gatling_Gun
 
         private void OnEnable()
         {
-            Aim.mechHasEntered += Attack;
-            Aim.mechHasExited += StopAttack;
+            //Aim.mechHasEntered += Attack;
+            //Aim.mechHasExited += StopAttack;
         }
 
         private void OnDisable()
         {
-            Aim.mechHasEntered -= Attack;
-            Aim.mechHasExited -= StopAttack;
+            //Aim.mechHasEntered -= Attack;
+            //Aim.mechHasExited -= StopAttack;
         }
 
 

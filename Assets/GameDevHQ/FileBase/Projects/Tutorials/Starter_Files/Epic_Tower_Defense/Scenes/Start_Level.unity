@@ -446,9 +446,9 @@ MonoBehaviour:
   spawnStart: {fileID: 309611195}
   spawnEnd: {fileID: 1074808044}
   _timeBetweenSpawn: 3
-  _currentWave: 1
-  _numberOfEnemies: 22
-  _waveMultiplier: 75
+  _currentWave: 3
+  _numberOfEnemies: 1
+  _waveMultiplier: 1
 --- !u!4 &36188967
 Transform:
   m_ObjectHideFlags: 0

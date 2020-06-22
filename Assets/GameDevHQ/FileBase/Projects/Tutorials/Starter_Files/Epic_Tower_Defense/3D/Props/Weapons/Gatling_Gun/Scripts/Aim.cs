@@ -12,11 +12,11 @@ public class Aim : MonoBehaviour
 
     [SerializeField] private GameObject _objectToRotate;
 
-    [SerializeField] private List<GameObject> _enemyList = new List<GameObject>();
+    [SerializeField] public List<GameObject> enemyList = new List<GameObject>();
 
-    public static event Action mechHasEntered;
-    public static event Action mechHasExited;
-
+    [SerializeField] private int _damage = 10;
+    [SerializeField] private int _perSecond = 1;
+    
     private IEnumerator coroutine;
 
 
@@ -36,58 +36,44 @@ public class Aim : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            _enemyList.Add(other.gameObject);
+            enemyList.Add(other.gameObject);
             
-            AimTarget(_enemyList[0].transform);
-            
-
-            if (mechHasEntered != null)
-            {
-                mechHasEntered();
-            }
+            AimTarget(enemyList[0].transform);
         }      
     }
+    
     private void OnTriggerStay(Collider other)
     {
-        AimTarget(_enemyList[0].transform);
+        AimTarget(enemyList[0].transform);
+        enemyList[0].GetComponent<Enemy>().BeingAttacked(_damage, _perSecond);
+
+        if (enemyList[0].GetComponent<Enemy>().isDead == true)
+        {
+            enemyList.Remove(other.gameObject);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        _enemyList.Remove(other.gameObject);
+        enemyList.Remove(other.gameObject);
 
-        if (_enemyList == null)
+        if (enemyList == null)
         {
             AimTarget(startingPos);
         }
 
-        else if (_enemyList != null)
+        else if (enemyList != null)
         {
-            AimTarget(_enemyList[0].transform);
-        }
-        
-
-        if (mechHasExited != null)
-        {
-            mechHasExited();
-        }
+            AimTarget(enemyList[0].transform);
+        }   
     }
 
     private void AimTarget(Transform target)
     {
-        Vector3 targetDirection = _enemyList[0].transform.position - _objectToRotate.transform.position;
+        Vector3 targetDirection = enemyList[0].transform.position - _objectToRotate.transform.position;
 
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
 
         _objectToRotate.transform.rotation = Quaternion.Slerp(_objectToRotate.transform.rotation, targetRotation, Time.deltaTime * _speed);
     }
-
-    /*private void AimTarget(Transform target)
-    {
-        Vector3 targetDirection = _mech.position - _objectToRotate.transform.position;
-
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-
-        _objectToRotate.transform.rotation = Quaternion.Slerp(_objectToRotate.transform.rotation, targetRotation, Time.deltaTime * _speed);
-    }*/
 }
