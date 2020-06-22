@@ -14,7 +14,7 @@ public class Aim : MonoBehaviour
 
     [SerializeField] public List<GameObject> enemyList = new List<GameObject>();
 
-    [SerializeField] private int _damage = 10;
+    [SerializeField] private int _damage = 3;
     [SerializeField] private int _perSecond = 1;
     
     private IEnumerator coroutine;
@@ -39,6 +39,7 @@ public class Aim : MonoBehaviour
             enemyList.Add(other.gameObject);
             
             AimTarget(enemyList[0].transform);
+            
         }      
     }
     
@@ -50,6 +51,12 @@ public class Aim : MonoBehaviour
         if (enemyList[0].GetComponent<Enemy>().isDead == true)
         {
             enemyList.Remove(other.gameObject);
+            AimTarget(enemyList[0].transform);
+        }
+
+        else if (enemyList != null)
+        {
+            AimTarget(enemyList[0].transform);
         }
     }
 

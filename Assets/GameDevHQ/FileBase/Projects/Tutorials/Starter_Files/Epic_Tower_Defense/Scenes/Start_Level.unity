@@ -445,7 +445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnStart: {fileID: 309611195}
   spawnEnd: {fileID: 1074808044}
-  _timeBetweenSpawn: 3
+  _timeBetweenSpawn: 0.14
   _currentWave: 3
   _numberOfEnemies: 1
   _waveMultiplier: 1

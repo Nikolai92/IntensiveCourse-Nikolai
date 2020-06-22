@@ -91,9 +91,6 @@ namespace GameDevHQ.FileBase.Gatling_Gun
             _startWeaponNoise = true; //set the start weapon noise value to true
         }
 
-        public void Damage(int damage)
-        {
-
-        }
+        
     }
 }
