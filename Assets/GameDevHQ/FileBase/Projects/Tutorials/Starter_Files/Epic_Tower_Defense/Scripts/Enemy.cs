@@ -10,19 +10,18 @@ public class Enemy : AI
     [SerializeField] private int _warFund = 0;
     [SerializeField] private float _timeToDespawn = 3f;
 
-    [SerializeField] private Animator animator;
+    [SerializeField] public Animator animator;
+    [SerializeField] private ParticleSystem _explosion;
 
     public bool isDead = false;
 
     private IEnumerator coroutine;
 
-    private List<GameObject> _enemyList;
-    
-
     public override void Start()
     {
         base.Start();
-        _enemyList = GetComponent<Aim>().enemyList;
+        _explosion.Pause();
+      
     }
 
     public void Update()
@@ -34,6 +33,7 @@ public class Enemy : AI
     {
         while (true)
         {
+            _explosion.Play();
             yield return new WaitForSeconds(_timeToDespawn);
             this.gameObject.SetActive(false);
         }

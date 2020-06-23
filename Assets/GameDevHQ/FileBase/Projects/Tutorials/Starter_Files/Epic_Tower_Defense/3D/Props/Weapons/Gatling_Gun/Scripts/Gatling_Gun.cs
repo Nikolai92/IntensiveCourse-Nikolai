@@ -29,23 +29,7 @@ namespace GameDevHQ.FileBase.Gatling_Gun
         private AudioSource _audioSource; //reference to the audio source component
         private bool _startWeaponNoise = true;
 
-        [SerializeField] private int _damage = 10; 
-        
         [SerializeField] public int WarFundsRequired { get; set; } = 50;
-
-        private void OnEnable()
-        {
-            //Aim.mechHasEntered += Attack;
-            //Aim.mechHasExited += StopAttack;
-        }
-
-        private void OnDisable()
-        {
-            //Aim.mechHasEntered -= Attack;
-            //Aim.mechHasExited -= StopAttack;
-        }
-
-
 
         // Use this for initialization
         void Start()
@@ -90,7 +74,6 @@ namespace GameDevHQ.FileBase.Gatling_Gun
             _audioSource.Stop(); //stop the sound effect from playing
             _startWeaponNoise = true; //set the start weapon noise value to true
         }
-
-        
     }
+
 }

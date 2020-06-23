@@ -12,7 +12,7 @@ public class Aim : MonoBehaviour
 
     [SerializeField] private GameObject _objectToRotate;
 
-    [SerializeField] public List<GameObject> enemyList = new List<GameObject>();
+    [SerializeField] public List<GameObject> enemyList;
 
     [SerializeField] private int _damage = 3;
     [SerializeField] private int _perSecond = 1;
@@ -24,6 +24,8 @@ public class Aim : MonoBehaviour
     void Start()
     {
         startingPos = _objectToRotate.gameObject.transform;
+
+        //enemyList = null;
     }
 
     // Update is called once per frame
@@ -36,43 +38,54 @@ public class Aim : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
+            enemyList = new List<GameObject>();
+
             enemyList.Add(other.gameObject);
-            
-            AimTarget(enemyList[0].transform);
-            
+
+
+            if (enemyList != null)
+            {
+                AimTarget(enemyList[0].transform);
+            }
         }      
     }
     
     private void OnTriggerStay(Collider other)
     {
-        AimTarget(enemyList[0].transform);
-        enemyList[0].GetComponent<Enemy>().BeingAttacked(_damage, _perSecond);
-
-        if (enemyList[0].GetComponent<Enemy>().isDead == true)
-        {
-            enemyList.Remove(other.gameObject);
-            AimTarget(enemyList[0].transform);
-        }
-
-        else if (enemyList != null)
+        if (enemyList != null)
         {
             AimTarget(enemyList[0].transform);
+            enemyList[0].GetComponent<Enemy>().BeingAttacked(_damage, _perSecond);
+
+            if (enemyList[0].GetComponent<Enemy>().isDead == true)
+            {
+                enemyList.Remove(other.gameObject);
+                AimTarget(enemyList[0].transform);
+            }
+
+            else if (enemyList != null)
+            {
+                AimTarget(enemyList[0].transform);
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        enemyList.Remove(other.gameObject);
-
-        if (enemyList == null)
+        if (enemyList != null)
         {
-            AimTarget(startingPos);
+            enemyList.Remove(other.gameObject);
+
+            if (enemyList == null)
+            {
+                AimTarget(startingPos);
+            }
+
+            else if (enemyList != null)
+            {
+                AimTarget(enemyList[0].transform);
+            }
         }
-
-        else if (enemyList != null)
-        {
-            AimTarget(enemyList[0].transform);
-        }   
     }
 
     private void AimTarget(Transform target)

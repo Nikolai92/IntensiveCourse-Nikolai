@@ -7,7 +7,7 @@ public abstract class AI : MonoBehaviour
 {
     [SerializeField] protected Vector3 _target;
 
-    protected NavMeshAgent _agent; 
+    protected NavMeshAgent _agent;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -37,5 +37,6 @@ public abstract class AI : MonoBehaviour
     public void OnDisable()
     {
         this.transform.position = SpawnManager.Instance.RequestStartPos();
+        this.GetComponent<Animator>().SetBool("IsDead", false);
     }
 }
