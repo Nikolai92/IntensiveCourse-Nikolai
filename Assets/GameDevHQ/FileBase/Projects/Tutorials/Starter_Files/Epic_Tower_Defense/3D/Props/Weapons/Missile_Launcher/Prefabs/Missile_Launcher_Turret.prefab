@@ -890,6 +890,9 @@ MonoBehaviour:
   _mech: {fileID: 0}
   _speed: 4
   _objectToRotate: {fileID: 1530330881940990}
+  enemyList: []
+  _damage: 135
+  _perSecond: 1
 --- !u!135 &23085386044892901
 SphereCollider:
   m_ObjectHideFlags: 0

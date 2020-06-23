@@ -17,8 +17,6 @@ public class CurrencyManager : MonoSingleton <CurrencyManager>
     private void OnEnable()
     {
         _currentWarFunds = _initialWarFunds;
-        _totalWarFundsRef = GetComponent<Text>();
-        _warFundsRef = GetComponent<Text>();
     }
     public void PayTower(int warfundsreq)
     {

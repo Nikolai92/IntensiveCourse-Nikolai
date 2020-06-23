@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Enemy : AI
 {
-    [SerializeField] public int _health = 0;
+    [SerializeField] public float _health = 0f;
     [SerializeField] private int _warFund = 0;
     [SerializeField] private float _timeToDespawn = 3f;
 
@@ -31,24 +31,20 @@ public class Enemy : AI
 
     private IEnumerator DieAndDespawn()
     {
-        while (true)
-        {
-            _explosion.Play();
-            yield return new WaitForSeconds(_timeToDespawn);
-            this.gameObject.SetActive(false);
-        }
+        _explosion.Play();
+        yield return new WaitForSeconds(_timeToDespawn);
+        this.gameObject.SetActive(false);
     }
 
-    public int BeingAttacked(int damage, int dps)
+    public float BeingAttacked(int damage, float dps)
     {
-        _health -= damage *  dps;
+        _health -= (damage *  dps);
 
         if (_health <= 0)
         {
             animator.SetBool("IsDead", true);
             isDead = true;
             StopWalking();
-            
             StartCoroutine(DieAndDespawn());
         }
 

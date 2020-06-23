@@ -12,9 +12,9 @@ public class Aim : MonoBehaviour
 
     [SerializeField] private GameObject _objectToRotate;
 
-    [SerializeField] public List<GameObject> enemyList;
+    [SerializeField] public List<GameObject> enemyList = new List<GameObject>();
 
-    [SerializeField] private int _damage = 3;
+    [SerializeField] private int _damage = 10;
     [SerializeField] private int _perSecond = 1;
     
     private IEnumerator coroutine;
@@ -37,13 +37,11 @@ public class Aim : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
-        {
-            enemyList = new List<GameObject>();
-
+        { 
             enemyList.Add(other.gameObject);
 
 
-            if (enemyList != null)
+            if (enemyList.Count > 0)
             {
                 AimTarget(enemyList[0].transform);
             }
@@ -52,10 +50,10 @@ public class Aim : MonoBehaviour
     
     private void OnTriggerStay(Collider other)
     {
-        if (enemyList != null)
+        if (enemyList.Count > 0)
         {
             AimTarget(enemyList[0].transform);
-            enemyList[0].GetComponent<Enemy>().BeingAttacked(_damage, _perSecond);
+            enemyList[0].GetComponent<Enemy>().BeingAttacked(_damage, Time.deltaTime);
 
             if (enemyList[0].GetComponent<Enemy>().isDead == true)
             {
