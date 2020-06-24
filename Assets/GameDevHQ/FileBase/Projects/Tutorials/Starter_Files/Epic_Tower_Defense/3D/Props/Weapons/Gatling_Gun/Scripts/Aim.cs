@@ -25,7 +25,6 @@ public class Aim : MonoBehaviour
     {
         startingPos = _objectToRotate.gameObject.transform;
 
-        //enemyList = null;
     }
 
     // Update is called once per frame
@@ -61,29 +60,32 @@ public class Aim : MonoBehaviour
                 AimTarget(enemyList[0].transform);
             }
 
-            else if (enemyList != null)
+            else if (enemyList.Count > 0)
             {
                 AimTarget(enemyList[0].transform);
+            }
+
+            else
+            {
+                AimTarget(startingPos);
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (enemyList != null)
+        enemyList.Remove(other.gameObject);
+
+        if (enemyList.Count >= 0)
         {
-            enemyList.Remove(other.gameObject);
-
-            if (enemyList == null)
-            {
-                AimTarget(startingPos);
-            }
-
-            else if (enemyList != null)
-            {
-                AimTarget(enemyList[0].transform);
-            }
+            AimTarget(startingPos);
         }
+
+        else if (enemyList.Count > 0)
+        {
+            AimTarget(enemyList[0].transform);
+        }
+        
     }
 
     private void AimTarget(Transform target)

@@ -17,6 +17,7 @@ public class CurrencyManager : MonoSingleton <CurrencyManager>
     private void OnEnable()
     {
         _currentWarFunds = _initialWarFunds;
+        _totalWarFundsRef.text = _currentWarFunds.ToString();
     }
     public void PayTower(int warfundsreq)
     {
