@@ -1588,6 +1588,7 @@ MonoBehaviour:
   _timeToDespawn: 3
   animator: {fileID: 95831276238310704}
   _explosion: {fileID: 1105080296475687373}
+  _diffuse: {fileID: 137635387268793398}
   isDead: 0
 --- !u!136 &-6515685383555603748
 CapsuleCollider:

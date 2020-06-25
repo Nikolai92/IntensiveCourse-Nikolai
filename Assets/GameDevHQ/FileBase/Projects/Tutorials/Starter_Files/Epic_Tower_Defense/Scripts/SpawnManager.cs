@@ -47,7 +47,6 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     public override void Init()
     {
         base.Init();
-        Debug.Log("Wavespawn has started");
     }
 
     public Vector3 RequestTarget()

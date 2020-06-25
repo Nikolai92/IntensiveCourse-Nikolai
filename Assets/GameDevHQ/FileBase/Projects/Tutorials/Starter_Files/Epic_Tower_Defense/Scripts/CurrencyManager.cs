@@ -21,11 +21,9 @@ public class CurrencyManager : MonoSingleton <CurrencyManager>
     }
     public void PayTower(int warfundsreq)
     {
-        Debug.Log(_initialWarFunds);
         _initialWarFunds -= warfundsreq;
         _currentWarFunds = _initialWarFunds;
-        _totalWarFundsRef.text = _currentWarFunds.ToString();
-        Debug.Log(_currentWarFunds);     
+        _totalWarFundsRef.text = _currentWarFunds.ToString();  
     }
 
     public bool HaveFunds(int warfundsReq)

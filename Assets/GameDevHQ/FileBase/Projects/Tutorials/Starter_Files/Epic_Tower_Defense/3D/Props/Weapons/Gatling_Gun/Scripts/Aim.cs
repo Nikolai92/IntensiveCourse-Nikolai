@@ -21,6 +21,7 @@ public class Aim : MonoBehaviour
     void Start()
     {
         startingPos = _objectToRotate.gameObject.transform;
+        
 
     }
 
@@ -35,13 +36,18 @@ public class Aim : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         { 
             enemyList.Add(other.gameObject);
-
-
+            
             if (enemyList.Count > 0)
             {
                 AimTarget(enemyList[0].transform);
             }
-        }      
+            else
+            {
+                AimTarget(startingPos);
+            }
+        }
+
+        
     }
     
     private void OnTriggerStay(Collider other)
@@ -54,30 +60,40 @@ public class Aim : MonoBehaviour
             if (enemyList[0].GetComponent<Enemy>().isDead == true)
             {
                 enemyList.Remove(other.gameObject);
-                AimTarget(enemyList[0].transform);
-            }
 
-            else if (enemyList.Count == 0)
-            {
-                AimTarget(startingPos);
-            }
+                if (enemyList.Count > 0)
+                {
+                    AimTarget(enemyList[0].transform);
+                }
+
+                else
+                {
+                    AimTarget(startingPos);
+                }
+            }   
         }
+
     }
 
     private void OnTriggerExit(Collider other)
     {
-        enemyList.Remove(other.gameObject);
 
-        if (enemyList.Count == 0)
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            AimTarget(startingPos);
+            enemyList.Remove(other.gameObject);     
         }
 
         else if (enemyList.Count > 0)
         {
             AimTarget(enemyList[0].transform);
         }
-        
+
+        else
+        {
+            AimTarget(startingPos);
+        }
+
+
     }
 
     private void AimTarget(Transform target)

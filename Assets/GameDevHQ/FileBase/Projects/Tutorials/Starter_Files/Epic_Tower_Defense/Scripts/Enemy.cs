@@ -14,6 +14,9 @@ public class Enemy : AI
     [SerializeField] public Animator animator;
     [SerializeField] private ParticleSystem _explosion;
 
+    [SerializeField] private Renderer _diffuse;
+    private float _difusseSpeed;
+
     public bool isDead = false;
 
     private IEnumerator coroutine;
@@ -21,9 +24,12 @@ public class Enemy : AI
     public override void Start()
     {
         base.Start();
-        _explosion.Pause();
+        _explosion.Stop();
         _originalHealth = _health;
-      
+        _difusseSpeed = 1f * Time.deltaTime;
+        _diffuse.material.SetFloat("_Amount", 0f);
+
+
     }
 
     public void Update()
@@ -34,11 +40,13 @@ public class Enemy : AI
     private IEnumerator DieAndDespawn()
     {
         _explosion.Play();
+        
         yield return new WaitForSeconds(_timeToDespawn);
         this.gameObject.SetActive(false);
         _health = _originalHealth;
         isDead = false;
         animator.ResetTrigger("IsDead");
+        _explosion.Stop();
     }
 
     public float GatlingGunAttack(int damage, float dps)
@@ -48,9 +56,11 @@ public class Enemy : AI
         if (_health <= 0)
         {
             animator.SetTrigger("IsDead");
+            _diffuse.material.SetFloat("_Amount", _difusseSpeed);
             isDead = true;
             StopWalking();
-            StartCoroutine(DieAndDespawn());
+            StartCoroutine(DieAndDespawn());      
+            
         }
 
         return _health;     
