@@ -41,7 +41,7 @@ public class Enemy : AI
         animator.ResetTrigger("IsDead");
     }
 
-    public float BeingAttacked(int damage, float dps)
+    public float GatlingGunAttack(int damage, float dps)
     {
         _health -= (damage *  dps);
 
@@ -55,4 +55,9 @@ public class Enemy : AI
 
         return _health;     
     }
+
+   /* public float TurretAttack(int damage)
+    {
+        StartCoroutine(FireRocketsRoutine)
+    }*/
 }

@@ -17,9 +17,6 @@ public class Aim : MonoBehaviour
     [SerializeField] private int _damage = 10;
     [SerializeField] private int _perSecond = 1;
     
-    private IEnumerator coroutine;
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +49,7 @@ public class Aim : MonoBehaviour
         if (enemyList.Count > 0)
         {
             AimTarget(enemyList[0].transform);
-            enemyList[0].GetComponent<Enemy>().BeingAttacked(_damage, Time.deltaTime);
+            enemyList[0].GetComponent<Enemy>().GatlingGunAttack(_damage, Time.deltaTime);
 
             if (enemyList[0].GetComponent<Enemy>().isDead == true)
             {
@@ -60,12 +57,7 @@ public class Aim : MonoBehaviour
                 AimTarget(enemyList[0].transform);
             }
 
-            else if (enemyList.Count > 0)
-            {
-                AimTarget(enemyList[0].transform);
-            }
-
-            else
+            else if (enemyList.Count == 0)
             {
                 AimTarget(startingPos);
             }
@@ -76,7 +68,7 @@ public class Aim : MonoBehaviour
     {
         enemyList.Remove(other.gameObject);
 
-        if (enemyList.Count >= 0)
+        if (enemyList.Count == 0)
         {
             AimTarget(startingPos);
         }

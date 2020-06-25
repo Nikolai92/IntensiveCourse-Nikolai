@@ -29,14 +29,12 @@ namespace GameDevHQ.FileBase.Missle_Launcher
 
         private void OnEnable()
         {
-            //Aim.mechHasEntered += Attack;
-            //Aim.mechHasExited += StopAttack;
+            
         }
 
         private void OnDisable()
         {
-            //Aim.mechHasEntered -= Attack;
-            //Aim.mechHasExited -= StopAttack;
+            
         }
 
         private void Update()

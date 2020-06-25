@@ -37,7 +37,5 @@ public abstract class AI : MonoBehaviour
     public void OnDisable()
     {
         this.transform.position = SpawnManager.Instance.RequestStartPos();
-        //this.GetComponent<Animator>().SetBool("IsDead", false);
-        this.GetComponent<Animator>().ResetTrigger("IsDead");
     }
 }
