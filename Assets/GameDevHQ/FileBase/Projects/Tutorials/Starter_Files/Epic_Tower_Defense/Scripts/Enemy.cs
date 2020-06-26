@@ -26,8 +26,6 @@ public class Enemy : AI
         base.Start();
         _explosion.Stop();
         _originalHealth = _health;
-        _difusseSpeed = 1f * Time.deltaTime;
-        _diffuse.material.SetFloat("_Amount", 0f);
 
 
     }
@@ -40,12 +38,23 @@ public class Enemy : AI
     private IEnumerator DieAndDespawn()
     {
         _explosion.Play();
-        
+
+        float fill = 0f;
+
+        while (fill < 1f)
+        {
+            fill += Time.deltaTime * .5f;
+            _diffuse.material.SetFloat("_Amount", fill);
+        }
+
         yield return new WaitForSeconds(_timeToDespawn);
+
+        animator.ResetTrigger("IsDead");
+        animator.WriteDefaultValues();
         this.gameObject.SetActive(false);
         _health = _originalHealth;
         isDead = false;
-        animator.ResetTrigger("IsDead");
+        _diffuse.material.SetFloat("_Amount", 0f);
         _explosion.Stop();
     }
 
@@ -56,7 +65,7 @@ public class Enemy : AI
         if (_health <= 0)
         {
             animator.SetTrigger("IsDead");
-            _diffuse.material.SetFloat("_Amount", _difusseSpeed);
+            
             isDead = true;
             StopWalking();
             StartCoroutine(DieAndDespawn());      

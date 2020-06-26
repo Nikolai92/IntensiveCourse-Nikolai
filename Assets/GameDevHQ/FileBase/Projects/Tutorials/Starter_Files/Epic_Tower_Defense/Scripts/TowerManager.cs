@@ -98,7 +98,6 @@ public class TowerManager : MonoBehaviour
 
             else
             {
-                Debug.Log("Not enough warfunds");
                 return;
             }
 

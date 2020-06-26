@@ -8,7 +8,7 @@ public class Aim : MonoBehaviour
 
     [SerializeField] private Transform _mech;
     [SerializeField] private float _speed = 4;
-    private Transform startingPos;
+    [SerializeField] private Transform startingPos;
 
     [SerializeField] private GameObject _objectToRotate;
 
@@ -98,7 +98,7 @@ public class Aim : MonoBehaviour
 
     private void AimTarget(Transform target)
     {
-        Vector3 targetDirection = enemyList[0].transform.position - _objectToRotate.transform.position;
+        Vector3 targetDirection = target.transform.position - _objectToRotate.transform.position;
 
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
 

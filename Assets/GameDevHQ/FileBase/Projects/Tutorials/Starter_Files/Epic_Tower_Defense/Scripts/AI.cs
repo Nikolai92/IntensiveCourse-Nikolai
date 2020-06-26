@@ -28,6 +28,7 @@ public abstract class AI : MonoBehaviour
         _target = SpawnManager.Instance.RequestTarget();
 
         _agent = GetComponent<NavMeshAgent>();
+
         if (_agent != null)
         {
             _agent.SetDestination(_target);
