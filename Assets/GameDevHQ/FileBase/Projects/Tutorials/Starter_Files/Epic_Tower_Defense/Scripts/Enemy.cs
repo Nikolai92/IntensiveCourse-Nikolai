@@ -43,7 +43,7 @@ public class Enemy : AI
 
         while (fill < 1f)
         {
-            fill += Time.deltaTime * .5f;
+            fill += (Time.deltaTime * .25f);
             _diffuse.material.SetFloat("_Amount", fill);
         }
 
