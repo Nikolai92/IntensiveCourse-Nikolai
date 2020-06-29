@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 public class Enemy : AI
@@ -14,7 +15,8 @@ public class Enemy : AI
     [SerializeField] public Animator animator;
     [SerializeField] private ParticleSystem _explosion;
 
-    [SerializeField] private Renderer _diffuse;
+    [SerializeField] private List<Renderer> _diffuse;
+
     private float _difusseSpeed;
 
     public bool isDead = false;
@@ -26,6 +28,7 @@ public class Enemy : AI
         base.Start();
         _explosion.Stop();
         _originalHealth = _health;
+        _diffuse = GetComponentsInChildren<Renderer>().ToList();
 
 
     }
@@ -43,8 +46,11 @@ public class Enemy : AI
 
         while (fill < 1f)
         {
-            fill += (Time.deltaTime * .25f);
-            _diffuse.material.SetFloat("_Amount", fill);
+            fill += (Time.deltaTime / 3);
+
+            _diffuse.ForEach(rend => rend.material.SetFloat("_Amount", fill));
+
+            yield return new WaitForEndOfFrame();
         }
 
         yield return new WaitForSeconds(_timeToDespawn);
@@ -54,7 +60,6 @@ public class Enemy : AI
         this.gameObject.SetActive(false);
         _health = _originalHealth;
         isDead = false;
-        _diffuse.material.SetFloat("_Amount", 0f);
         _explosion.Stop();
     }
 

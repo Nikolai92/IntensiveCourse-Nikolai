@@ -39,8 +39,6 @@ public class CurrencyManager : MonoSingleton<CurrencyManager>
             StartCoroutine(NotEnoughFunds());
         }
 
-        //_warFundsRef.text = _funds;
-
         return _currentWarFunds >= warfundsReq;
     }
 

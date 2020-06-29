@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace GameDevHQ.FileBase.Gatling_Gun
@@ -30,6 +31,7 @@ namespace GameDevHQ.FileBase.Gatling_Gun
         private bool _startWeaponNoise = true;
 
         [SerializeField] public int WarFundsRequired { get; set; } = 50;
+        [SerializeField] private Text _warFunds;
 
         // Use this for initialization
         void Start()
@@ -40,6 +42,7 @@ namespace GameDevHQ.FileBase.Gatling_Gun
             _audioSource.playOnAwake = false; //disabling play on awake
             _audioSource.loop = true; //making sure our sound effect loops
             _audioSource.clip = fireSound; //assign the clip to play
+            _warFunds.text = WarFundsRequired.ToString();
         }
 
         // Update is called once per frame

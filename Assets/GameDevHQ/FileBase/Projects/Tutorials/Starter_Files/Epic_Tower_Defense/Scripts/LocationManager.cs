@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,10 @@ public class LocationManager : MonoBehaviour
     private IEnumerator coroutine;
 
     private bool _towerHasBeenPlaced = false;
+
+    public static event Action upgradeTower;
+
+    private int _towerID;
 
     public void Start()
     {
@@ -52,8 +57,14 @@ public class LocationManager : MonoBehaviour
     {
         if (_towerHasBeenPlaced == false)
         {
+            _towerID = _tower.GetTowerID();
             _tower.PlaceTower(this);
             _towerHasBeenPlaced = true;
+        }
+
+        else if (_towerHasBeenPlaced == true)
+        {
+            //TowerManager.UpgradeTower(_towerID);
         }
     }
 

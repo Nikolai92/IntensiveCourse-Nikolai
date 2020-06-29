@@ -820,9 +820,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mech: {fileID: 0}
   _speed: 4
+  startingPos: {fileID: 0}
   _objectToRotate: {fileID: 9176883321931032930}
   enemyList: []
-  _damage: 0
+  _damage: 5
   _perSecond: 1
 --- !u!135 &357258971686841093
 SphereCollider:

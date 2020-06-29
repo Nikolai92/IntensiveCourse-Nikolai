@@ -16,6 +16,16 @@ public class TowerManager : MonoBehaviour
     private bool _canPlaceTower = false;
     private bool _isSnap = false;
 
+    private void OnEnable()
+    {
+        //LocationManager.upgradeTower += UpgradeTower;
+    }
+
+    private void OnDisable()
+    {
+        //LocationManager.upgradeTower -= UpgradeTower;
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -123,4 +133,15 @@ public class TowerManager : MonoBehaviour
     {
         _isSnap = false;
     }
+
+    public int GetTowerID()
+    {
+        return _towerID;
+    }
+
+    public void UpgradeTower(int towerIndex)
+    {
+        
+    }
+
 }
