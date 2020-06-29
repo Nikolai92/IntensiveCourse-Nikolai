@@ -46,7 +46,7 @@ public class Enemy : AI
 
         while (fill < 1f)
         {
-            fill += (Time.deltaTime / 3);
+            fill += (Time.deltaTime / 4);
 
             _diffuse.ForEach(rend => rend.material.SetFloat("_Amount", fill));
 
