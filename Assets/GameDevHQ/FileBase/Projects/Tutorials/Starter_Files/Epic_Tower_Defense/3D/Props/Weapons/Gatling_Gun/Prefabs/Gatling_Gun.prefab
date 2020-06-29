@@ -416,6 +416,12 @@ MonoBehaviour:
   Muzzle_Flash: {fileID: 8330144517887790379}
   bulletCasings: {fileID: 8838317486287890027}
   fireSound: {fileID: 8300000, guid: 08e0cb88300e54b09aa0deb684c3a3de, type: 3}
+  _towerID: 1
+  _fundsRequired: 50
+  _upgradeCost: 150
+  _upgradeModel: {fileID: 3219234488178555116, guid: 4565034b2cea2354aa1991c60bc1cd44,
+    type: 3}
+  _warFunds: {fileID: 0}
 --- !u!114 &8128645509918764498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,6 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mech: {fileID: 0}
   _speed: 4
+  startingPos: {fileID: 0}
   _objectToRotate: {fileID: 2521341377252585312}
   enemyList: []
   _damage: 3

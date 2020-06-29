@@ -7,18 +7,13 @@ public class LocationManager : MonoBehaviour
 {
     [SerializeField] private GameObject _greenCircle;
     [SerializeField] private GameObject _redCircle;
-
     [SerializeField] private ParticleSystem _particles;
-
     [SerializeField] private TowerManager _tower;
 
-    private IEnumerator coroutine;
-
+    private ITower _currentTower;
     private bool _towerHasBeenPlaced = false;
 
-    public static event Action upgradeTower;
-
-    private int _towerID;
+    private IEnumerator coroutine;
 
     public void Start()
     {
@@ -57,15 +52,16 @@ public class LocationManager : MonoBehaviour
     {
         if (_towerHasBeenPlaced == false)
         {
-            _towerID = _tower.GetTowerID();
-            _tower.PlaceTower(this);
+            _tower.PlaceTower(this.transform.position, _currentTower);
             _towerHasBeenPlaced = true;
+            return;
         }
 
         else if (_towerHasBeenPlaced == true)
         {
-            //TowerManager.UpgradeTower(_towerID);
+            _tower.UpgradeTower();
         }
+        
     }
 
     public void OnMouseExit()

@@ -8,22 +8,24 @@ public class TowerManager : MonoBehaviour
     [SerializeField] private GameObject[] _decoyTowers;
     [SerializeField] private GameObject[] _towers;
     [SerializeField] private GameObject _towerContainer;
+    
+    private int _towerID; // 1 = gatling, 2 = turret
+    private bool _canPlaceTower = false;
+    private bool _isSnap = false;
 
     public static event Action placeTower;
     public static event Action towerPlaced;
 
-    private int _towerID;
-    private bool _canPlaceTower = false;
-    private bool _isSnap = false;
+    private ITower currentTower;
 
     private void OnEnable()
     {
-        //LocationManager.upgradeTower += UpgradeTower;
+
     }
 
     private void OnDisable()
     {
-        //LocationManager.upgradeTower -= UpgradeTower;
+
     }
 
 
@@ -36,34 +38,6 @@ public class TowerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            _towerID = 0;
-            _decoyTowers[1].gameObject.SetActive(false);
-            _decoyTowers[_towerID].gameObject.SetActive(true);
-
-            _canPlaceTower = true;
-
-            if (placeTower != null)
-            {
-                placeTower();
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            _towerID = 1;
-            _decoyTowers[0].gameObject.SetActive(false);
-            _decoyTowers[_towerID].gameObject.SetActive(true);
-
-            _canPlaceTower = true;
-
-            if (placeTower != null)
-            {
-                placeTower();
-            }     
-        }
-
         MouseCtrl();    
     }
 
@@ -90,7 +64,7 @@ public class TowerManager : MonoBehaviour
         }    
     }
 
-    public void PlaceTower(LocationManager pos)
+    public void PlaceTower(Vector3 pos, ITower currentTower)
     {
         {
             ITower obj = _towers[_towerID].GetComponent<ITower>();
@@ -99,15 +73,15 @@ public class TowerManager : MonoBehaviour
 
             if ((check == true) && (_canPlaceTower == true))
             {
-                GameObject newTower = Instantiate(_towers[_towerID], pos.gameObject.transform.position, Quaternion.identity);
-                newTower.transform.SetParent(_towerContainer.transform, true);
+                GameObject initialTower = Instantiate(_towers[_towerID], pos, Quaternion.identity);
+                initialTower.transform.SetParent(_towerContainer.transform, true);
+                currentTower = initialTower.GetComponent<ITower>();
+                currentTower.CurrentTowerObject = initialTower;
+                currentTower.PlacedTowerPos = pos;
                 _canPlaceTower = false;
 
                 _decoyTowers[_towerID].gameObject.SetActive(false);
-            }
 
-            else
-            {
                 return;
             }
 
@@ -119,7 +93,12 @@ public class TowerManager : MonoBehaviour
             if (towerPlaced != null)
             {
                 towerPlaced();
-            }       
+            }
+
+            else
+            {
+                return;
+            }
         }
     }
 
@@ -134,14 +113,28 @@ public class TowerManager : MonoBehaviour
         _isSnap = false;
     }
 
-    public int GetTowerID()
+    public void SelectTower(int towerIndex)
     {
-        return _towerID;
+        _towerID = towerIndex;
+        _decoyTowers[_towerID].gameObject.SetActive(false);
+        _decoyTowers[_towerID].gameObject.SetActive(true);
+
+        _canPlaceTower = true;
+
+        if (placeTower != null)
+        {
+            placeTower();
+        }
     }
 
-    public void UpgradeTower(int towerIndex)
+    public void UpgradeTower()
     {
-        
-    }
+        Destroy(currentTower.CurrentTowerObject);
+        GameObject upgrade = Instantiate(currentTower.UpgradedTowerObject);
 
+        currentTower = upgrade.GetComponent<ITower>();
+        upgrade.transform.position = this.transform.position;
+        currentTower.PlacedTowerPos = this.transform.position;
+        currentTower.CurrentTowerObject = upgrade;
+    }
 }

@@ -19,19 +19,30 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
     /// </summary>
 
     [RequireComponent(typeof(AudioSource))] //Require Audio Source component
-    public class Dual_Gatling_Gun : MonoBehaviour
+    public class Dual_Gatling_Gun : MonoBehaviour, ITower
     {
-        [SerializeField]
-        private Transform[] _gunBarrel; //Reference to hold the gun barrel
-        [SerializeField]
-        private GameObject[] _muzzleFlash; //reference to the muzzle flash effect to play when firing
-        [SerializeField]
-        private ParticleSystem[] _bulletCasings; //reference to the bullet casing effect to play when firing
-        [SerializeField]
-        private AudioClip _fireSound; //Reference to the audio clip
+        [SerializeField] private Transform[] _gunBarrel; //Reference to hold the gun barrel
+        [SerializeField] private GameObject[] _muzzleFlash; //reference to the muzzle flash effect to play when firing
+        [SerializeField] private ParticleSystem[] _bulletCasings; //reference to the bullet casing effect to play when firing
+        [SerializeField] private AudioClip _fireSound; //Reference to the audio clip
 
         private AudioSource _audioSource; //reference to the audio source component
         private bool _startWeaponNoise = true;
+
+        [SerializeField] private int _towerID;
+        [SerializeField] private int _fundsRequired;
+        //[SerializeField] private int _initialCost;
+        [SerializeField] private int _upgradeCost;
+        [SerializeField] private GameObject _upgradeModel = null;
+
+        public int WarFundsRequired { get => _fundsRequired; }
+        public int TowerID { get => _towerID; }
+        //public int InitialCost { get => _initialCost; }
+        public int UpgradeCost { get => _upgradeCost; }
+
+        public GameObject CurrentTowerObject { get; set; }
+        public GameObject UpgradedTowerObject { get => _upgradeModel; }
+        public Vector3 PlacedTowerPos { get; set; }
 
         // Use this for initialization
         void Start()
@@ -82,6 +93,11 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
         {
             _gunBarrel[0].transform.Rotate(Vector3.forward * Time.deltaTime * -500.0f); //rotate the gun barrel along the "forward" (z) axis at 500 meters per second
             _gunBarrel[1].transform.Rotate(Vector3.forward * Time.deltaTime * -500.0f); //rotate the gun barrel along the "forward" (z) axis at 500 meters per second
+        }
+
+        public void Attack()
+        {
+            throw new System.NotImplementedException();
         }
     }
 

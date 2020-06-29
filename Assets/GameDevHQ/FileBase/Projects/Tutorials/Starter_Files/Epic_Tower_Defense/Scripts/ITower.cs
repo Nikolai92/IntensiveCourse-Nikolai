@@ -4,11 +4,13 @@ using UnityEngine;
 
 public interface ITower
 {
-    int WarFundsRequired { get; set; }
-    int TowerID { get; set; }
+    int WarFundsRequired { get; }
+    int TowerID { get; }
+    //int InitialCost { get; }
+    int UpgradeCost { get; }
 
-    GameObject CurrentTower { get; set; }
-    GameObject UpgradedTowerObject { get; set; }
+    GameObject CurrentTowerObject { get; set; }
+    GameObject UpgradedTowerObject { get; }
     Vector3 PlacedTowerPos { get; set; }
 
     void Attack();

@@ -27,6 +27,18 @@ namespace GameDevHQ.FileBase.Missle_Launcher
 
         [SerializeField] public int WarFundsRequired { get; set; } = 150;
 
+        public int TowerID => throw new System.NotImplementedException();
+
+        //public int InitialCost => throw new System.NotImplementedException();
+
+        public int UpgradeCost => throw new System.NotImplementedException();
+
+        public GameObject CurrentTowerObject { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
+        public GameObject UpgradedTowerObject => throw new System.NotImplementedException();
+
+        public Vector3 PlacedTowerPos { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
         private void OnEnable()
         {
             
