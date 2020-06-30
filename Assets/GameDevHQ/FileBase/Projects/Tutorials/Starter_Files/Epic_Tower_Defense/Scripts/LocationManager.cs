@@ -52,14 +52,14 @@ public class LocationManager : MonoBehaviour
     {
         if (_towerHasBeenPlaced == false)
         {
-            _tower.PlaceTower(this.transform.position, _currentTower);
+            _currentTower = _tower.PlaceTower(this.transform.position, _currentTower);
             _towerHasBeenPlaced = true;
             return;
         }
 
         else if (_towerHasBeenPlaced == true)
         {
-            _tower.UpgradeTower();
+            _tower.UpgradeTower(this.transform.position, _currentTower);
         }
         
     }

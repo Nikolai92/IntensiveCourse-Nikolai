@@ -64,7 +64,7 @@ public class TowerManager : MonoBehaviour
         }    
     }
 
-    public void PlaceTower(Vector3 pos, ITower currentTower)
+    public ITower PlaceTower(Vector3 pos, ITower currentTower)
     {
         {
             ITower obj = _towers[_towerID].GetComponent<ITower>();
@@ -82,7 +82,7 @@ public class TowerManager : MonoBehaviour
 
                 _decoyTowers[_towerID].gameObject.SetActive(false);
 
-                return;
+                return currentTower;
             }
 
             if (obj != null)
@@ -95,10 +95,7 @@ public class TowerManager : MonoBehaviour
                 towerPlaced();
             }
 
-            else
-            {
-                return;
-            }
+            return null;
         }
     }
 
@@ -127,14 +124,14 @@ public class TowerManager : MonoBehaviour
         }
     }
 
-    public void UpgradeTower()
+    public void UpgradeTower(Vector3 pos, ITower currentTower)
     {
         Destroy(currentTower.CurrentTowerObject);
         GameObject upgrade = Instantiate(currentTower.UpgradedTowerObject);
 
         currentTower = upgrade.GetComponent<ITower>();
-        upgrade.transform.position = this.transform.position;
-        currentTower.PlacedTowerPos = this.transform.position;
+        upgrade.transform.position = pos;
+        currentTower.PlacedTowerPos = pos;
         currentTower.CurrentTowerObject = upgrade;
     }
 }
