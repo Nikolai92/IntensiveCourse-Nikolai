@@ -5,27 +5,32 @@ using GameDevHQ.FileBase.Missle_Launcher_Dual_Turret.Missle;
 
 namespace GameDevHQ.FileBase.Missle_Launcher_Dual_Turret
 {
-    public class Missle_Launcher : MonoBehaviour
+    public class Missle_Launcher : MonoBehaviour, ITower
     {
-        [SerializeField]
-        private GameObject _missilePrefab; //holds the missle gameobject to clone
-        [SerializeField]
-        private GameObject[] _misslePositionsLeft; //array to hold the rocket positions on the turret
-        [SerializeField]
-        private GameObject[] _misslePositionsRight; //array to hold the rocket positions on the turret
-        [SerializeField]
-        private float _fireDelay; //fire delay between rockets
-        [SerializeField]
-        private float _launchSpeed; //initial launch speed of the rocket
-        [SerializeField]
-        private float _power; //power to apply to the force of the rocket
-        [SerializeField]
-        private float _fuseDelay; //fuse delay before the rocket launches
-        [SerializeField]
-        private float _reloadTime; //time in between reloading the rockets
-        [SerializeField]
-        private float _destroyTime = 10.0f; //how long till the rockets get cleaned up
+        [SerializeField] private GameObject _missilePrefab; //holds the missle gameobject to clone
+        [SerializeField] private GameObject[] _misslePositionsLeft; //array to hold the rocket positions on the turret
+        [SerializeField] private GameObject[] _misslePositionsRight; //array to hold the rocket positions on the turret
+        [SerializeField] private float _fireDelay; //fire delay between rockets
+        [SerializeField] private float _launchSpeed; //initial launch speed of the rocket
+        [SerializeField] private float _power; //power to apply to the force of the rocket
+        [SerializeField] private float _fuseDelay; //fuse delay before the rocket launches
+        [SerializeField] private float _reloadTime; //time in between reloading the rockets
+        [SerializeField] private float _destroyTime = 10.0f; //how long till the rockets get cleaned up
         private bool _launched; //bool to check if we launched the rockets
+
+        [SerializeField] private int _towerID;
+        [SerializeField] private int _fundsRequired;
+        [SerializeField] private int _upgradeCost;
+        [SerializeField] private int _sellRefund;
+        [SerializeField] private GameObject _upgradeModel;
+
+        public int SellRefund { get => _sellRefund; }
+        public int WarFundsRequired { get => _fundsRequired; }
+        public int TowerID { get => _towerID; }
+        public int UpgradeCost { get => _upgradeCost; }
+        public GameObject CurrentTowerObject { get; set; }
+        public GameObject UpgradedTowerObject { get => _upgradeModel; }
+        public Vector3 PlacedTowerPos { get; set; }
 
         private void Update()
         {
@@ -72,6 +77,11 @@ namespace GameDevHQ.FileBase.Missle_Launcher_Dual_Turret
             }
 
             _launched = false; //set launch bool to false
+        }
+
+        public void Attack()
+        {
+
         }
     }
 }

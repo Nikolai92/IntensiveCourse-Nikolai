@@ -7,6 +7,7 @@ public interface ITower
     int WarFundsRequired { get; }
     int TowerID { get; }
     int UpgradeCost { get; }
+    int SellRefund { get; }
 
     GameObject CurrentTowerObject { get; set; }
     GameObject UpgradedTowerObject { get; }

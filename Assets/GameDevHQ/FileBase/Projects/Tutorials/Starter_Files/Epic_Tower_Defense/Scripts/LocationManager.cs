@@ -12,6 +12,7 @@ public class LocationManager : MonoBehaviour
     [SerializeField] private UIManager _UIManager;
 
     private bool _towerHasBeenPlaced = false;
+    private bool _hasBeenUpgraded = false;
 
     private ITower _currentTower;
     private IEnumerator coroutine;
@@ -60,9 +61,17 @@ public class LocationManager : MonoBehaviour
 
         else if (_towerHasBeenPlaced == true)
         {
-            _UIManager.UpgradeUIMenu(_currentTower.TowerID);
-        }
-        
+            if (_hasBeenUpgraded == false)
+            {
+                _UIManager.TowerMenu(_currentTower.TowerID);
+                _UIManager.SellUIMenu();
+            }
+
+            else if (_hasBeenUpgraded == true)
+            {
+                _UIManager.SellUIMenu();
+            }
+        }     
     }
 
     public void OnMouseExit()
@@ -92,6 +101,26 @@ public class LocationManager : MonoBehaviour
 
     public void TowerUpgrade()
     {
-        _tower.UpgradeTower(this.transform.position, _currentTower);
+        bool check = CurrencyManager.Instance.HaveFunds(_currentTower.UpgradeCost);
+
+        if (check == true)
+        {
+            CurrencyManager.Instance.TowerUpgradeCost(_currentTower.UpgradeCost);
+            _tower.UpgradeTower(this.transform.position, _currentTower);
+            _hasBeenUpgraded = true;
+        }
+
+        else
+        {
+            Debug.Log("Not enough funds");
+        }
+        
+    }
+
+    public void TowerSell()
+    {
+        _tower.SellTower(this.transform.position, _currentTower);
+        CurrencyManager.Instance.TowerSell(_currentTower.SellRefund);
+        _towerHasBeenPlaced = false;
     }
 }

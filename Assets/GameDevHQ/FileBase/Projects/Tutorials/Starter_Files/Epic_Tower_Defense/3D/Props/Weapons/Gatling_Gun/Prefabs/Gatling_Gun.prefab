@@ -417,9 +417,9 @@ MonoBehaviour:
   _speed: 4
   startingPos: {fileID: 0}
   _objectToRotate: {fileID: 2521341377252585312}
-  enemyList: []
   _damage: 3
   _perSecond: 1
+  enemyList: []
 --- !u!114 &7311596375969772236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,9 +438,8 @@ MonoBehaviour:
   _towerID: 1
   _fundsRequired: 50
   _upgradeCost: 150
+  _sellRefund: 25
   _upgradeModel: {fileID: 3219234488178555116, guid: 4565034b2cea2354aa1991c60bc1cd44,
-    type: 3}
-  _upgradeUI: {fileID: 3297723208281368905, guid: 7fbcb1f517e384d4a978088d08497072,
     type: 3}
   _warFunds: {fileID: 0}
 --- !u!1 &2061178572971949102

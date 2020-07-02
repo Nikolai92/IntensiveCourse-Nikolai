@@ -1583,12 +1583,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {x: 0, y: 0, z: 0}
-  _health: 100
-  _warFund: 0
+  _warFund: 100
   _timeToDespawn: 3
-  animator: {fileID: 95831276238310704}
   _explosion: {fileID: 1105080296475687373}
-  _diffuse: {fileID: 137635387268793398}
+  _diffuse: []
+  _health: 100
+  animator: {fileID: 95831276238310704}
   isDead: 0
 --- !u!136 &-6515685383555603748
 CapsuleCollider:

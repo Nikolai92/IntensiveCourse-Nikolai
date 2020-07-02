@@ -18,6 +18,7 @@ public class CurrencyManager : MonoSingleton<CurrencyManager>
 
     private void OnEnable()
     {
+        Enemy.HasDiedGetFunds += AddEnemyFunds;
         _currentWarFunds = _initialWarFunds;
         _totalWarFundsRef.text = _currentWarFunds.ToString();
     }
@@ -48,5 +49,22 @@ public class CurrencyManager : MonoSingleton<CurrencyManager>
         _warFundsRef.text = _funds;
     }
 
+    private void AddEnemyFunds(int addedFunds)
+    {
+        _currentWarFunds += addedFunds;
+        _totalWarFundsRef.text = _currentWarFunds.ToString();
+    }
+
+    public void TowerUpgradeCost(int warfundsReq)
+    {
+        _currentWarFunds -= warfundsReq;
+        _totalWarFundsRef.text = _currentWarFunds.ToString();
+    }
+
+    public void TowerSell(int warfunds)
+    {
+        _currentWarFunds += warfunds;
+        _totalWarFundsRef.text = _currentWarFunds.ToString();
+    }
     
 }

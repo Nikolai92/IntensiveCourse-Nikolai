@@ -602,9 +602,10 @@ MonoBehaviour:
   - {fileID: 8513791710158269510}
   - {fileID: 8513330991201787586}
   _fireSound: {fileID: 8300000, guid: ebcd7ceac90454c1e9dc458cb87b6f75, type: 3}
-  _towerID: 2
+  _towerID: 3
   _fundsRequired: 0
   _upgradeCost: 0
+  _sellRefund: 65
   _upgradeModel: {fileID: 0}
 --- !u!114 &-6702521325409712453
 MonoBehaviour:
@@ -622,9 +623,9 @@ MonoBehaviour:
   _speed: 4
   startingPos: {fileID: 0}
   _objectToRotate: {fileID: 9001413835294419945}
-  enemyList: []
   _damage: 10
   _perSecond: 1
+  enemyList: []
 --- !u!1 &4530239772046608147
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ using System.Linq;
 
 public class Enemy : AI
 {    
-    [SerializeField] private int _warFund = 0;
+    [SerializeField] private int _warFund;
     [SerializeField] private float _timeToDespawn = 3f;
     [SerializeField] private ParticleSystem _explosion;
     [SerializeField] private List<Renderer> _diffuse;
@@ -17,6 +17,8 @@ public class Enemy : AI
     private float _originalHealth;
     private float _difusseSpeed;
     public bool isDead = false;
+
+    public static event Action<int> HasDiedGetFunds;
 
     private IEnumerator coroutine;
 
@@ -62,16 +64,20 @@ public class Enemy : AI
     {
         _health -= (damage *  dps);
 
-        if (_health <= 0)
+        if (_health <= 0 && isDead == false)
         {
+            if (HasDiedGetFunds != null)
+            {
+                HasDiedGetFunds(_warFund);
+            }
             animator.SetTrigger("IsDead");
             
             isDead = true;
             StopWalking();
+
             StartCoroutine(DieAndDespawn());      
             
         }
-
         return _health;     
     }
 }

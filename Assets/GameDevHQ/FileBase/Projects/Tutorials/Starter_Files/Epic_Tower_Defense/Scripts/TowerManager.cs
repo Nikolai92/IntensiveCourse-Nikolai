@@ -82,12 +82,12 @@ public class TowerManager : MonoSingleton<TowerManager>
 
                 _decoyTowers[_towerID].gameObject.SetActive(false);
 
-                return currentTower;
-            }
+                if (obj != null)
+                {
+                    CurrencyManager.Instance.PayTower(obj.WarFundsRequired);
+                }
 
-            if (obj != null)
-            {
-                CurrencyManager.Instance.PayTower(obj.WarFundsRequired);
+                return currentTower;
             }
 
             if (towerPlaced != null)
@@ -135,5 +135,11 @@ public class TowerManager : MonoSingleton<TowerManager>
         upgrade.transform.position = pos;
         currentTower.PlacedTowerPos = pos;
         currentTower.CurrentTowerObject = upgrade;
+    }
+
+    public void SellTower(Vector3 pos, ITower currentTower)
+    {
+        UIManager.Instance.DisableSellMenu();
+        Destroy(currentTower.CurrentTowerObject);
     }
 }

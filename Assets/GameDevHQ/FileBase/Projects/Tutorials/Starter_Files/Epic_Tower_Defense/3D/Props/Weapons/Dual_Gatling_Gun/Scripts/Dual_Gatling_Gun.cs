@@ -32,8 +32,10 @@ namespace GameDevHQ.FileBase.Dual_Gatling_Gun
         [SerializeField] private int _towerID;
         [SerializeField] private int _fundsRequired;
         [SerializeField] private int _upgradeCost;
+        [SerializeField] private int _sellRefund;
         [SerializeField] private GameObject _upgradeModel = null;
 
+        public int SellRefund { get => _sellRefund; }
         public int WarFundsRequired { get => _fundsRequired; }
         public int TowerID { get => _towerID; }
         public int UpgradeCost { get => _upgradeCost; }
