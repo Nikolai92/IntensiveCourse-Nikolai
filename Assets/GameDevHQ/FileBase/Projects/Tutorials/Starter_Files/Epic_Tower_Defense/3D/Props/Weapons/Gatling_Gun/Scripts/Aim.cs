@@ -47,7 +47,7 @@ public class Aim : MonoBehaviour
         if (enemyList.Count > 0)
         {
             AimTarget(enemyList[0].transform);
-            enemyList[0].GetComponent<Enemy>().GatlingGunAttack(_damage, Time.deltaTime);
+            enemyList[0].GetComponent<Enemy>().BeingAttacked(_damage, Time.deltaTime);
 
             if (enemyList[0].GetComponent<Enemy>().isDead == true)
             {

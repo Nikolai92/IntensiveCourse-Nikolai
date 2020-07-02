@@ -60,7 +60,7 @@ public class Enemy : AI
         _explosion.Stop();
     }
 
-    public float GatlingGunAttack(int damage, float dps)
+    public float BeingAttacked(int damage, float dps)
     {
         _health -= (damage *  dps);
 
