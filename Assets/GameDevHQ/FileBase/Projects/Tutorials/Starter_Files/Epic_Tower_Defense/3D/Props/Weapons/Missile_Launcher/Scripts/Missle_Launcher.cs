@@ -7,38 +7,28 @@ namespace GameDevHQ.FileBase.Missle_Launcher
 {
     public class Missle_Launcher : MonoBehaviour, ITower
     {
-        [SerializeField]
-        private GameObject _missilePrefab; //holds the missle gameobject to clone
-        [SerializeField]
-        private GameObject[] _misslePositions; //array to hold the rocket positions on the turret
-        [SerializeField]
-        private float _fireDelay; //fire delay between rockets
-        [SerializeField]
-        private float _launchSpeed; //initial launch speed of the rocket
-        [SerializeField]
-        private float _power; //power to apply to the force of the rocket
-        [SerializeField]
-        private float _fuseDelay; //fuse delay before the rocket launches
-        [SerializeField]
-        private float _reloadTime; //time in between reloading the rockets
-        [SerializeField]
-        private float _destroyTime = 10.0f; //how long till the rockets get cleaned up
+        [SerializeField] private GameObject _missilePrefab; //holds the missle gameobject to clone
+        [SerializeField] private GameObject[] _misslePositions; //array to hold the rocket positions on the turret
+        [SerializeField] private float _fireDelay; //fire delay between rockets
+        [SerializeField] private float _launchSpeed; //initial launch speed of the rocket
+        [SerializeField] private float _power; //power to apply to the force of the rocket
+        [SerializeField] private float _fuseDelay; //fuse delay before the rocket launches
+        [SerializeField] private float _reloadTime; //time in between reloading the rockets
+        [SerializeField] private float _destroyTime = 10.0f; //how long till the rockets get cleaned up
         private bool _launched; //bool to check if we launched the rockets
 
-        [SerializeField] public int WarFundsRequired { get; set; } = 150;
+        [SerializeField] private int _towerID;
+        [SerializeField] private int _fundsRequired;
+        [SerializeField] private int _upgradeCost;
+        [SerializeField] private GameObject _upgradeModel;
 
-        public int TowerID => throw new System.NotImplementedException();
-
-        //public int InitialCost => throw new System.NotImplementedException();
-
-        public int UpgradeCost => throw new System.NotImplementedException();
-
-        public GameObject CurrentTowerObject { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-
-        public GameObject UpgradedTowerObject => throw new System.NotImplementedException();
-
-        public Vector3 PlacedTowerPos { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-
+        public int WarFundsRequired { get => _fundsRequired; }
+        public int TowerID { get => _towerID; }
+        public int UpgradeCost { get => _upgradeCost; }
+        public GameObject CurrentTowerObject { get; set; }
+        public GameObject UpgradedTowerObject { get => _upgradeModel; }
+        public Vector3 PlacedTowerPos { get; set; }
+        
         private void OnEnable()
         {
             

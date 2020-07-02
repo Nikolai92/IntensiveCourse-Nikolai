@@ -251,8 +251,8 @@ GameObject:
   - component: {fileID: 8170819414644686303}
   - component: {fileID: 6125891959025615646}
   - component: {fileID: 5191178688925903531}
-  - component: {fileID: 7311596375969772236}
   - component: {fileID: 8128645509918764498}
+  - component: {fileID: 7311596375969772236}
   m_Layer: 2
   m_Name: Gatling_Gun
   m_TagString: Untagged
@@ -401,6 +401,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8128645509918764498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805542611756907796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37c64c788aa107428fd213d12e1b02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mech: {fileID: 0}
+  _speed: 4
+  startingPos: {fileID: 0}
+  _objectToRotate: {fileID: 2521341377252585312}
+  enemyList: []
+  _damage: 3
+  _perSecond: 1
 --- !u!114 &7311596375969772236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,26 +440,9 @@ MonoBehaviour:
   _upgradeCost: 150
   _upgradeModel: {fileID: 3219234488178555116, guid: 4565034b2cea2354aa1991c60bc1cd44,
     type: 3}
+  _upgradeUI: {fileID: 3297723208281368905, guid: 7fbcb1f517e384d4a978088d08497072,
+    type: 3}
   _warFunds: {fileID: 0}
---- !u!114 &8128645509918764498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805542611756907796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b37c64c788aa107428fd213d12e1b02d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mech: {fileID: 0}
-  _speed: 4
-  startingPos: {fileID: 0}
-  _objectToRotate: {fileID: 2521341377252585312}
-  enemyList: []
-  _damage: 3
-  _perSecond: 1
 --- !u!1 &2061178572971949102
 GameObject:
   m_ObjectHideFlags: 0

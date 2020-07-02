@@ -33,7 +33,6 @@ public class CameraController : MonoBehaviour
         //WASD/ArrowKeys cam movement
         float _horizontalInput = Input.GetAxis("Horizontal");
         float _verticalInput = Input.GetAxis("Vertical");
-
         
         Vector3 direction = new Vector3(_verticalInput, 0, -_horizontalInput);
 

@@ -32,24 +32,22 @@ namespace GameDevHQ.FileBase.Gatling_Gun
 
         [SerializeField] private int _towerID;
         [SerializeField] private int _fundsRequired;
-        //[SerializeField] private int _initialCost;
         [SerializeField] private int _upgradeCost;
         [SerializeField] private GameObject _upgradeModel;
-        
 
         [SerializeField] private Text _warFunds; //Testing this toString;
 
 
         public int WarFundsRequired { get => _fundsRequired; }
         public int TowerID { get => _towerID ; }
-        //public int InitialCost { get => _initialCost; }
         public int UpgradeCost { get => _upgradeCost; }
 
         public GameObject CurrentTowerObject { get; set; }
         public GameObject UpgradedTowerObject { get => _upgradeModel; }
         public Vector3 PlacedTowerPos { get; set; }
 
-        
+
+
 
         // Use this for initialization
         void Start()
@@ -61,6 +59,8 @@ namespace GameDevHQ.FileBase.Gatling_Gun
             _audioSource.loop = true; //making sure our sound effect loops
             _audioSource.clip = fireSound; //assign the clip to play
             //_warFunds.text = WarFundsRequired.ToString();
+
+
         }
 
         // Update is called once per frame

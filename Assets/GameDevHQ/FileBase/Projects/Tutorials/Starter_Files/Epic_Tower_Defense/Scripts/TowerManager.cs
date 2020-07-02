@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerManager : MonoBehaviour
+public class TowerManager : MonoSingleton<TowerManager>
 {
     [SerializeField] private GameObject[] _decoyTowers;
     [SerializeField] private GameObject[] _towers;
@@ -126,8 +126,10 @@ public class TowerManager : MonoBehaviour
 
     public void UpgradeTower(Vector3 pos, ITower currentTower)
     {
+        UIManager.Instance.DisableUpgradeMenu(currentTower.TowerID);
         Destroy(currentTower.CurrentTowerObject);
         GameObject upgrade = Instantiate(currentTower.UpgradedTowerObject);
+        upgrade.transform.SetParent(_towerContainer.transform, true);
 
         currentTower = upgrade.GetComponent<ITower>();
         upgrade.transform.position = pos;

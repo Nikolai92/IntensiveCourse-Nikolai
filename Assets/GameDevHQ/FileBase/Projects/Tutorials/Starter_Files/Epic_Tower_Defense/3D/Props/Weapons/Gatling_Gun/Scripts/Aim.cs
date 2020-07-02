@@ -5,24 +5,18 @@ using UnityEngine;
 
 public class Aim : MonoBehaviour
 {
-
     [SerializeField] private Transform _mech;
     [SerializeField] private float _speed = 4;
     [SerializeField] private Transform startingPos;
-
     [SerializeField] private GameObject _objectToRotate;
-
-    [SerializeField] public List<GameObject> enemyList = new List<GameObject>();
-
     [SerializeField] private int _damage = 10;
     [SerializeField] private int _perSecond = 1;
-    
+    [SerializeField] public List<GameObject> enemyList = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
         startingPos = _objectToRotate.gameObject.transform;
-        
-
     }
 
     // Update is called once per frame
@@ -45,9 +39,7 @@ public class Aim : MonoBehaviour
             {
                 AimTarget(startingPos);
             }
-        }
-
-        
+        }    
     }
     
     private void OnTriggerStay(Collider other)
@@ -72,12 +64,10 @@ public class Aim : MonoBehaviour
                 }
             }   
         }
-
     }
 
     private void OnTriggerExit(Collider other)
     {
-
         if (other.gameObject.CompareTag("Enemy"))
         {
             enemyList.Remove(other.gameObject);     
@@ -92,8 +82,6 @@ public class Aim : MonoBehaviour
         {
             AimTarget(startingPos);
         }
-
-
     }
 
     private void AimTarget(Transform target)

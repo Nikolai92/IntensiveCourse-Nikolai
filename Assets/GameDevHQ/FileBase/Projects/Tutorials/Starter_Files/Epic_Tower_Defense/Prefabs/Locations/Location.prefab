@@ -192,6 +192,7 @@ MonoBehaviour:
   _redCircle: {fileID: 6686252388512683046}
   _particles: {fileID: 3661036835065814984}
   _tower: {fileID: 0}
+  _UIManager: {fileID: 0}
 --- !u!1 &6686252388512683046
 GameObject:
   m_ObjectHideFlags: 0

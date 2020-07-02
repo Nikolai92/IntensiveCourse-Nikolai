@@ -7,12 +7,11 @@ public class CurrencyManager : MonoSingleton<CurrencyManager>
 {
     [SerializeField] private int _initialWarFunds = 500;
     [SerializeField] private int _currentWarFunds;
-
     [SerializeField] private Text _totalWarFundsRef;
     [SerializeField] private Text _warFundsRef;
+
     private string _noFunds = "Need funds";
     private string _funds = "Good";
-
     public bool haveFunds = true;
 
     private IEnumerator coroutine;

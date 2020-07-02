@@ -6,19 +6,16 @@ using System.Linq;
 
 
 public class Enemy : AI
-{
-    [SerializeField] public float _health = 0f;
-    private float _originalHealth;
+{    
     [SerializeField] private int _warFund = 0;
     [SerializeField] private float _timeToDespawn = 3f;
-
-    [SerializeField] public Animator animator;
     [SerializeField] private ParticleSystem _explosion;
-
     [SerializeField] private List<Renderer> _diffuse;
+    [SerializeField] public float _health = 0f;
+    [SerializeField] public Animator animator;
 
+    private float _originalHealth;
     private float _difusseSpeed;
-
     public bool isDead = false;
 
     private IEnumerator coroutine;
@@ -29,8 +26,6 @@ public class Enemy : AI
         _explosion.Stop();
         _originalHealth = _health;
         _diffuse = GetComponentsInChildren<Renderer>().ToList();
-
-
     }
 
     public void Update()
@@ -79,9 +74,4 @@ public class Enemy : AI
 
         return _health;     
     }
-
-   /* public float TurretAttack(int damage)
-    {
-        StartCoroutine(FireRocketsRoutine)
-    }*/
 }
