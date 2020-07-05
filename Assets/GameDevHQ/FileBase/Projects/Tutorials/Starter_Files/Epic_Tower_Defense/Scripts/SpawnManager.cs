@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
 
 public class SpawnManager : MonoSingleton<SpawnManager>
 {
@@ -12,19 +14,36 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     [SerializeField] private int _numberOfEnemies;
     [SerializeField] private int _waveMultiplier = 10;
 
-    
+    [SerializeField] private Text mainScreen;
+
+    [SerializeField] private Text waveNumber;
+    private int _waveNumber;
+
+    public static event Action Victory;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(WaveSpawner());
+        waveNumber.text = _waveNumber.ToString();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && (_waveNumber <= 10))
         {
-            var enemy = PoolManager.Instance.RequestEnemy();
+            StartCoroutine(WaveSpawner());
+            _waveNumber++;
+            waveNumber.text = _waveNumber.ToString();
+
+            if(_waveNumber == 10)
+            {
+                mainScreen.text = "LEVEL \nCOMPLETE";
+
+                if (Victory != null)
+                {
+                    Victory();
+                }
+            }
         }
     }
 

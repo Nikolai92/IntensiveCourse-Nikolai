@@ -8,13 +8,15 @@ public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField] private GameObject[] _upgradeUI;
     [SerializeField] private GameObject _sellUI;
-
+    [SerializeField] private GameObject _statusScreen;
     [SerializeField] private Text Lives;
-
-
     [SerializeField] private int _lives;
+    [SerializeField] private Text _statusScreenText;
 
 
+    private bool gameHasStarted = false;
+
+    IEnumerator coroutine;
     ITower _currentTower;
 
     private void OnEnable()
@@ -22,7 +24,7 @@ public class UIManager : MonoSingleton<UIManager>
         LocationManager.TowerMenu += TowerMenu;
         LocationManager.TowerMenu += SellUIMenu;
         EndRecycler.EnemyReachedEnd += TakeLife;
-
+        SpawnManager.Victory += EnableStatusScreen;
     }
 
     private void OnDisable()
@@ -30,6 +32,8 @@ public class UIManager : MonoSingleton<UIManager>
         LocationManager.TowerMenu -= TowerMenu;
         LocationManager.TowerMenu -= SellUIMenu;
         EndRecycler.EnemyReachedEnd -= TakeLife;
+        SpawnManager.Victory += EnableStatusScreen;
+
     }
 
     // Start is called before the first frame update
@@ -87,6 +91,37 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void UnPause()
     {
-        Time.timeScale = 1f;
+        if (gameHasStarted == true)
+        {
+            Time.timeScale = 1f;
+        }
+
+        else if (gameHasStarted == false)
+        {
+            EnableStatusScreen();
+            StartCoroutine(Countdown());
+        }
+    }
+
+    private void EnableStatusScreen()
+    {
+        _statusScreen.SetActive(true);
+    }
+
+    private void DisableStatusScreen()
+    {
+        _statusScreen.SetActive(false);
+    }
+
+    private IEnumerator Countdown()
+    {
+        int count = 5;
+        while (count >= 1)
+        {
+            _statusScreenText.text = count.ToString();
+            count--;
+            yield return new WaitForSeconds(1);
+        }
+        DisableStatusScreen();
     }
 }
