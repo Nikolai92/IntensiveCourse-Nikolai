@@ -20,7 +20,7 @@ public class TowerManager : MonoSingleton<TowerManager>
 
     private void OnEnable()
     {
-
+        LocationManager.TowerMenu += GetITower;
     }
 
     private void OnDisable()
@@ -124,22 +124,48 @@ public class TowerManager : MonoSingleton<TowerManager>
         }
     }
 
-    public void UpgradeTower(Vector3 pos, ITower currentTower)
+    public void GetITower(ITower _currentTower)
     {
-        UIManager.Instance.DisableUpgradeMenu(currentTower.TowerID);
-        Destroy(currentTower.CurrentTowerObject);
-        GameObject upgrade = Instantiate(currentTower.UpgradedTowerObject);
-        upgrade.transform.SetParent(_towerContainer.transform, true);
-
-        currentTower = upgrade.GetComponent<ITower>();
-        upgrade.transform.position = pos;
-        currentTower.PlacedTowerPos = pos;
-        currentTower.CurrentTowerObject = upgrade;
+        currentTower = _currentTower;
     }
 
-    public void SellTower(Vector3 pos, ITower currentTower)
+    public void UpgradeTower()
     {
+        bool check = CurrencyManager.Instance.HaveFunds(currentTower.UpgradeCost);
+
+        if (check == true)
+        {
+            CurrencyManager.Instance.TowerUpgradeCost(currentTower.UpgradeCost);
+
+            UIManager.Instance.DisableTowerMenu();
+            UIManager.Instance.DisableSellMenu();
+
+            Destroy(currentTower.CurrentTowerObject);
+
+            GameObject upgrade = Instantiate(currentTower.UpgradedTowerObject);
+            upgrade.transform.position = currentTower.PlacedTowerPos;
+
+            currentTower.CurrentTowerObject = upgrade;
+            currentTower = upgrade.GetComponent<ITower>();
+
+
+
+
+            upgrade.transform.SetParent(_towerContainer.transform, true);
+        }
+
+        else
+        {
+            Debug.Log("Not enough funds");
+        }
+    }
+
+    public void SellTower()
+    {
+        UIManager.Instance.DisableTowerMenu();
         UIManager.Instance.DisableSellMenu();
+        Debug.Log("Selling:" + currentTower.TowerID);
+        CurrencyManager.Instance.TowerSell(currentTower.SellRefund);
         Destroy(currentTower.CurrentTowerObject);
     }
 }

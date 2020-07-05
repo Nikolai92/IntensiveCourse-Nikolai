@@ -17,6 +17,8 @@ public class LocationManager : MonoBehaviour
     private ITower _currentTower;
     private IEnumerator coroutine;
 
+    public static event Action<ITower> TowerMenu;
+
     public void Start()
     {
         DeactivateParticles();
@@ -61,7 +63,17 @@ public class LocationManager : MonoBehaviour
 
         else if (_towerHasBeenPlaced == true)
         {
-            if (_hasBeenUpgraded == false)
+            if (TowerMenu != null)
+            {
+                TowerMenu(_currentTower);
+            }
+
+
+            /* if (UpgradeTower != null)
+             {
+                 UpgradeTower(this.transform.position, _currentTower);
+             } */
+            /*if (_hasBeenUpgraded == false)
             {
                 _UIManager.TowerMenu(_currentTower.TowerID);
                 _UIManager.SellUIMenu();
@@ -70,7 +82,7 @@ public class LocationManager : MonoBehaviour
             else if (_hasBeenUpgraded == true)
             {
                 _UIManager.SellUIMenu();
-            }
+            }*/
         }     
     }
 
@@ -99,28 +111,12 @@ public class LocationManager : MonoBehaviour
         _redCircle.gameObject.SetActive(false);
     }
 
-    public void TowerUpgrade()
+   
+
+    /*public void TowerSell()
     {
-        bool check = CurrencyManager.Instance.HaveFunds(_currentTower.UpgradeCost);
-
-        if (check == true)
-        {
-            CurrencyManager.Instance.TowerUpgradeCost(_currentTower.UpgradeCost);
-            _tower.UpgradeTower(this.transform.position, _currentTower);
-            _hasBeenUpgraded = true;
-        }
-
-        else
-        {
-            Debug.Log("Not enough funds");
-        }
-        
-    }
-
-    public void TowerSell()
-    {
-        _tower.SellTower(this.transform.position, _currentTower);
+        _tower.SellTower(_currentTower);
         CurrencyManager.Instance.TowerSell(_currentTower.SellRefund);
         _towerHasBeenPlaced = false;
-    }
+    }*/
 }
