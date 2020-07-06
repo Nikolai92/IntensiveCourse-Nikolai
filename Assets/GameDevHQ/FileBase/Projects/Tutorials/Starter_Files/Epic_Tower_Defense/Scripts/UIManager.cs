@@ -13,6 +13,9 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] private int _lives;
     [SerializeField] private Text _statusScreenText;
 
+    [SerializeField] private GameObject[] _blueUI;
+    [SerializeField] private GameObject[] _yellowUI;
+    [SerializeField] private GameObject[] _redUI;
 
     private bool gameHasStarted = false;
 
@@ -76,6 +79,31 @@ public class UIManager : MonoSingleton<UIManager>
     public void TakeLife()
     {
         _lives--;
+
+        if (_lives == 6)
+        {
+            foreach (GameObject blue in _blueUI)
+            {
+                blue.SetActive(false);
+            }
+            foreach (GameObject yellow in _yellowUI)
+            {
+                yellow.SetActive(true);
+            }
+        }
+
+        else if (_lives == 3)
+        {
+            foreach (GameObject yellow in _yellowUI)
+            {
+                yellow.SetActive(false);
+            }
+            foreach (GameObject red in _redUI)
+            {
+                red.SetActive(true);
+            }
+        }
+
         Lives.text = _lives.ToString();
     }
 
@@ -100,6 +128,7 @@ public class UIManager : MonoSingleton<UIManager>
         {
             EnableStatusScreen();
             StartCoroutine(Countdown());
+            gameHasStarted = true;
         }
     }
 
