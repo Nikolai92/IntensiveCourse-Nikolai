@@ -12,6 +12,10 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] private Text Lives;
     [SerializeField] private int _lives;
     [SerializeField] private Text _statusScreenText;
+    [SerializeField] private Text _sellUIText;
+    [SerializeField] private Text[] _initialCostText;
+    [SerializeField] private Text[] _upgradeText;
+    [SerializeField] private GameObject[] _towers;
 
     [SerializeField] private GameObject[] _blueUI;
     [SerializeField] private GameObject[] _yellowUI;
@@ -36,12 +40,15 @@ public class UIManager : MonoSingleton<UIManager>
         LocationManager.TowerMenu -= SellUIMenu;
         EndRecycler.EnemyReachedEnd -= TakeLife;
         SpawnManager.Victory += EnableStatusScreen;
-
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        _initialCostText[1].text =_towers[1].GetComponent<ITower>().WarFundsRequired.ToString();
+        _initialCostText[2].text = _towers[2].GetComponent<ITower>().WarFundsRequired.ToString();
+        _upgradeText[1].text = _towers[1].GetComponent<ITower>().WarFundsRequired.ToString();
+        _upgradeText[2].text = _towers[2].GetComponent<ITower>().WarFundsRequired.ToString();
         Lives.text = _lives.ToString();
     }
 
@@ -64,6 +71,7 @@ public class UIManager : MonoSingleton<UIManager>
     public void SellUIMenu(ITower tower)
     {
        _sellUI.SetActive(true);
+       _sellUIText.text = tower.SellRefund.ToString();
     }
 
     public void DisableSellMenu()
@@ -152,5 +160,15 @@ public class UIManager : MonoSingleton<UIManager>
             yield return new WaitForSeconds(1);
         }
         DisableStatusScreen();
+    }
+
+    public void CostToUI1(int cost)
+    {
+        _initialCostText[1].text = cost.ToString();
+    }
+
+    public void CostToUI2(int cost)
+    {
+        _initialCostText[2].text = cost.ToString();
     }
 }

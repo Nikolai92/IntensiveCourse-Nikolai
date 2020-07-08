@@ -28,12 +28,16 @@ public class LocationManager : MonoBehaviour
     {
         TowerManager.placeTower += ActivateParticles;
         TowerManager.towerPlaced += DeactivateParticles;
+        TowerManager.towerUpgrade += NewITower;
+        TowerManager.towerSold += TowerSold;
     }
 
     private void OnDisable()
     {
         TowerManager.placeTower -= ActivateParticles;
         TowerManager.towerPlaced -= DeactivateParticles;
+        TowerManager.towerUpgrade -= NewITower;
+ 
     }
 
     public void OnMouseEnter()
@@ -69,23 +73,12 @@ public class LocationManager : MonoBehaviour
                 Debug.Log("Tower is: " + _currentTower.TowerID);
                 //Fire off event with ITower selected
             }
+        }
 
-
-            /* if (UpgradeTower != null)
-             {
-                 UpgradeTower(this.transform.position, _currentTower);
-             } */
-            /*if (_hasBeenUpgraded == false)
-            {
-                _UIManager.TowerMenu(_currentTower.TowerID);
-                _UIManager.SellUIMenu();
-            }
-
-            else if (_hasBeenUpgraded == true)
-            {
-                _UIManager.SellUIMenu();
-            }*/
-        }     
+        else
+        {
+            return;
+        }
     }
 
     public void OnMouseExit()
@@ -113,12 +106,13 @@ public class LocationManager : MonoBehaviour
         _redCircle.gameObject.SetActive(false);
     }
 
-   
-
-    /*public void TowerSell()
+   public void NewITower(ITower newTower)
     {
-        _tower.SellTower(_currentTower);
-        CurrencyManager.Instance.TowerSell(_currentTower.SellRefund);
+        _currentTower = newTower;
+    }
+
+    public void TowerSold()
+    {
         _towerHasBeenPlaced = false;
-    }*/
+    }
 }

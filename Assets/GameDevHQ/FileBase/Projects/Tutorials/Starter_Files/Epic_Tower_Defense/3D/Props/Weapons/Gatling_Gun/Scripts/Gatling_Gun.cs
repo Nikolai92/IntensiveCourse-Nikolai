@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 
 namespace GameDevHQ.FileBase.Gatling_Gun
@@ -35,7 +36,6 @@ namespace GameDevHQ.FileBase.Gatling_Gun
         [SerializeField] private int _upgradeCost;
         [SerializeField] private int _sellRefund;
         [SerializeField] private GameObject _upgradeModel;
-
         [SerializeField] private Text _warFunds; //Testing this toString;
 
 
@@ -48,9 +48,6 @@ namespace GameDevHQ.FileBase.Gatling_Gun
         public GameObject UpgradedTowerObject { get => _upgradeModel; }
         public Vector3 PlacedTowerPos { get; set; }
 
-
-
-
         // Use this for initialization
         void Start()
         {
@@ -60,9 +57,6 @@ namespace GameDevHQ.FileBase.Gatling_Gun
             _audioSource.playOnAwake = false; //disabling play on awake
             _audioSource.loop = true; //making sure our sound effect loops
             _audioSource.clip = fireSound; //assign the clip to play
-            //_warFunds.text = WarFundsRequired.ToString();
-
-
         }
 
         // Update is called once per frame
@@ -75,7 +69,6 @@ namespace GameDevHQ.FileBase.Gatling_Gun
         void RotateBarrel() 
         {
             _gunBarrel.transform.Rotate(Vector3.forward * Time.deltaTime * -500.0f); //rotate the gun barrel along the "forward" (z) axis at 500 meters per second
-
         }
 
         public void Attack()
@@ -98,5 +91,4 @@ namespace GameDevHQ.FileBase.Gatling_Gun
             _startWeaponNoise = true; //set the start weapon noise value to true
         }
     }
-
 }

@@ -15,6 +15,8 @@ public class TowerManager : MonoSingleton<TowerManager>
 
     public static event Action placeTower;
     public static event Action towerPlaced;
+    public static event Action towerSold;
+    public static event Action<ITower> towerUpgrade;
 
     private ITower currentTower;
 
@@ -25,7 +27,7 @@ public class TowerManager : MonoSingleton<TowerManager>
 
     private void OnDisable()
     {
-
+        LocationManager.TowerMenu -= GetITower;
     }
 
 
@@ -129,7 +131,7 @@ public class TowerManager : MonoSingleton<TowerManager>
         currentTower = _currentTower;
     }
 
-    public ITower UpgradeTower()
+    public void UpgradeTower()
     {
         bool check = CurrencyManager.Instance.HaveFunds(currentTower.UpgradeCost);
 
@@ -145,19 +147,13 @@ public class TowerManager : MonoSingleton<TowerManager>
             GameObject upgrade = Instantiate(currentTower.UpgradedTowerObject);
             upgrade.transform.position = currentTower.PlacedTowerPos;
 
-            currentTower.CurrentTowerObject = upgrade;
             currentTower = upgrade.GetComponent<ITower>();
+            currentTower.CurrentTowerObject = upgrade;
             Debug.Log(currentTower.TowerID);
-
 
             upgrade.transform.SetParent(_towerContainer.transform, true);
 
-            return currentTower;
-        }
-
-        else
-        {
-            return currentTower;
+            towerUpgrade(currentTower);
         }
     }
 
@@ -168,5 +164,7 @@ public class TowerManager : MonoSingleton<TowerManager>
         Debug.Log("Selling:" + currentTower.TowerID);
         CurrencyManager.Instance.TowerSell(currentTower.SellRefund);
         Destroy(currentTower.CurrentTowerObject);
+
+        towerSold();
     }
 }

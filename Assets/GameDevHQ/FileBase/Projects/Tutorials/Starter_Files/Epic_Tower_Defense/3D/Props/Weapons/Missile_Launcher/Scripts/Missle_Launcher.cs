@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameDevHQ.FileBase.Missle_Launcher.Missle;
@@ -30,21 +31,6 @@ namespace GameDevHQ.FileBase.Missle_Launcher
         public GameObject CurrentTowerObject { get; set; }
         public GameObject UpgradedTowerObject { get => _upgradeModel; }
         public Vector3 PlacedTowerPos { get; set; }
-        
-        private void OnEnable()
-        {
-            
-        }
-
-        private void OnDisable()
-        {
-            
-        }
-
-        private void Update()
-        {
-           
-        }
 
         IEnumerator FireRocketsRoutine()
         {
