@@ -79,7 +79,7 @@ public class TowerManager : MonoSingleton<TowerManager>
                 currentTower.CurrentTowerObject = initialTower;
                 currentTower.PlacedTowerPos = pos;
                 _canPlaceTower = false;
-
+                
                 _decoyTowers[_towerID].gameObject.SetActive(false);
 
                 if (obj != null)
@@ -129,7 +129,7 @@ public class TowerManager : MonoSingleton<TowerManager>
         currentTower = _currentTower;
     }
 
-    public void UpgradeTower()
+    public ITower UpgradeTower()
     {
         bool check = CurrencyManager.Instance.HaveFunds(currentTower.UpgradeCost);
 
@@ -147,16 +147,17 @@ public class TowerManager : MonoSingleton<TowerManager>
 
             currentTower.CurrentTowerObject = upgrade;
             currentTower = upgrade.GetComponent<ITower>();
-
-
+            Debug.Log(currentTower.TowerID);
 
 
             upgrade.transform.SetParent(_towerContainer.transform, true);
+
+            return currentTower;
         }
 
         else
         {
-            Debug.Log("Not enough funds");
+            return currentTower;
         }
     }
 

@@ -18,6 +18,8 @@ public class Enemy : AI
     private float _difusseSpeed;
     public bool isDead = false;
 
+    private WaitForSeconds _deathDelayYield;
+
     public static event Action<int> HasDiedGetFunds;
 
     private IEnumerator coroutine;
@@ -28,6 +30,7 @@ public class Enemy : AI
         _explosion.Stop();
         _originalHealth = _health;
         _diffuse = GetComponentsInChildren<Renderer>().ToList();
+        _deathDelayYield = new WaitForSeconds(_timeToDespawn);
     }
 
     public void Update()
@@ -50,7 +53,7 @@ public class Enemy : AI
             yield return new WaitForEndOfFrame();
         }
 
-        yield return new WaitForSeconds(_timeToDespawn);
+        yield return _deathDelayYield;
 
         animator.ResetTrigger("IsDead");
         animator.WriteDefaultValues();

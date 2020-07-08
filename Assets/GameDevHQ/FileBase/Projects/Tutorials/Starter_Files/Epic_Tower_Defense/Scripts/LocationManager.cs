@@ -66,6 +66,8 @@ public class LocationManager : MonoBehaviour
             if (TowerMenu != null)
             {
                 TowerMenu(_currentTower);
+                Debug.Log("Tower is: " + _currentTower.TowerID);
+                //Fire off event with ITower selected
             }
 
 
