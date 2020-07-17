@@ -15,8 +15,8 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     [SerializeField] private int _waveMultiplier = 10;
 
     [SerializeField] private Text mainScreen;
-
     [SerializeField] private Text waveNumber;
+    [SerializeField] private List<Wave> _waves = new List<Wave>();
     private int _waveNumber;
 
     public static event Action Victory;
@@ -49,12 +49,28 @@ public class SpawnManager : MonoSingleton<SpawnManager>
 
     private IEnumerator WaveSpawner()
     {
-        while (_numberOfEnemies < AmountToSpawn())
+        //_currentWave = 0;
+
+        while (_currentWave < _waves.Count)
         {
+            //_currentWave++;
+
+            /*var currentWave = _waves[_currentWave].sequence;
+            for (int i = 0; i > currentWave.Count; i++)
+            {
+                Instantiate(currentWave[i], spawnStart.transform);
+                yield return new WaitForSeconds(1f);
+            }
+
+            if (_currentWave == _waves.Count)
+            {
+                Debug.Log("Waves finished");
+            }*/
+
             var enemy = PoolManager.Instance.RequestEnemy();
             yield return new WaitForSeconds(_timeBetweenSpawn);
             _numberOfEnemies++;
-        }
+        }  
     }
 
     private int AmountToSpawn()

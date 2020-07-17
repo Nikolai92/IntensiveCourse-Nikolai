@@ -522,6 +522,10 @@ MonoBehaviour:
   _waveMultiplier: 8
   mainScreen: {fileID: 12562996}
   waveNumber: {fileID: 640746102}
+  _waves:
+  - {fileID: 11400000, guid: 1dcf416e82b40db48982ae7ff54ec606, type: 2}
+  - {fileID: 11400000, guid: 03d2ef09657e5f1479bca93dc0a3d994, type: 2}
+  - {fileID: 11400000, guid: 9e9c65998a3869c45b279b1c49f52a62, type: 2}
 --- !u!4 &36188967
 Transform:
   m_ObjectHideFlags: 0
