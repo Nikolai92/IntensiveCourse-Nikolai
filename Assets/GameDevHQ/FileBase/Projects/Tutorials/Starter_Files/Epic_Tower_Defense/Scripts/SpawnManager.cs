@@ -10,7 +10,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     [SerializeField] private Transform spawnEnd;
 
     [SerializeField] private float _timeBetweenSpawn;
-    [SerializeField] private int _currentWave;
+    private int _currentWave;
     [SerializeField] private int _numberOfEnemies;
     [SerializeField] private int _waveMultiplier = 10;
 
@@ -29,13 +29,11 @@ public class SpawnManager : MonoSingleton<SpawnManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && (_waveNumber <= 10))
+        if (Input.GetKeyDown(KeyCode.Space) && (_waveNumber <= 3))
         {
             StartCoroutine(WaveSpawner());
-            _waveNumber++;
-            waveNumber.text = _waveNumber.ToString();
-
-            if(_waveNumber == 10)
+            
+            if(_waveNumber == 3)
             {
                 mainScreen.text = "LEVEL \nCOMPLETE";
 
@@ -49,34 +47,32 @@ public class SpawnManager : MonoSingleton<SpawnManager>
 
     private IEnumerator WaveSpawner()
     {
-        //_currentWave = 0;
-
-        while (_currentWave < _waves.Count)
+        while(true)
         {
-            //_currentWave++;
-
-            /*var currentWave = _waves[_currentWave].sequence;
-            for (int i = 0; i > currentWave.Count; i++)
+            _waveNumber++;
+            waveNumber.text = _waveNumber.ToString();
+            
+            var currentWave = _waves[_currentWave].sequence;
+            //var previousWave = new GameObject("PreviousWave");
+            foreach (var obj in currentWave)
             {
-                Instantiate(currentWave[i], spawnStart.transform);
-                yield return new WaitForSeconds(1f);
+                Instantiate(obj, spawnStart);
+                yield return new WaitForSeconds(1.0f);
             }
+            
+            yield return new WaitForSeconds(5.0f);
+
+
+            //Destroy(previousWave);
+            _currentWave++;
 
             if (_currentWave == _waves.Count)
             {
                 Debug.Log("Waves finished");
-            }*/
+                break;
+            }
 
-            var enemy = PoolManager.Instance.RequestEnemy();
-            yield return new WaitForSeconds(_timeBetweenSpawn);
-            _numberOfEnemies++;
         }  
-    }
-
-    private int AmountToSpawn()
-    {
-        var amountToSpawn = _waveMultiplier * _currentWave;
-        return amountToSpawn;
     }
 
     public override void Init()

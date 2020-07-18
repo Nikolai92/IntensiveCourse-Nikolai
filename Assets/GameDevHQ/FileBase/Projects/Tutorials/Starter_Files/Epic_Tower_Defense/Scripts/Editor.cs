@@ -9,8 +9,12 @@ public class Editor : EditorWindow
     public Object[] mech;
     public int amountOfMechs;
     bool addedEnemies = false;
-    
-    [MenuItem("Window/Editor")]
+    private int _currentWave;
+
+    [SerializeField] private List<Wave> _waves;
+    [SerializeField] private GameObject _startPos;
+
+    [MenuItem("Window/WaveTester")]
 
     static void Init()
     {
@@ -20,6 +24,48 @@ public class Editor : EditorWindow
 
     private void OnGUI()
     {
+        var so = new SerializedObject(this);
+
+        var property = so.FindProperty("_waves");
+        EditorGUILayout.PropertyField(property, true);
+
+        property = so.FindProperty("_startPos");
+        EditorGUILayout.PropertyField(property, true);
+
+        so.ApplyModifiedProperties();
+
+        if (GUILayout.Button("Start Wave"))
+        {
+            EditorCoroutines.EditorCoroutineExtensions.StartCoroutine(this, WaveTest());
+        }
+    }
+
+    IEnumerator WaveTest()
+    {
+        while (true)
+        {
+            var currentWave = _waves[_currentWave].sequence;
+
+            foreach (var obj in currentWave)
+            {
+                Instantiate(obj, _startPos.transform);
+                yield return new WaitForSeconds(1.0f);
+            }
+
+            yield return new WaitForSeconds(5.0f);
+
+            _currentWave++;
+
+            if (_currentWave == _waves.Count)
+            {
+                Debug.Log("WAVE TEST FINISHED!");
+                break;
+            }
+        }
+    } 
+}
+
+        /*
         GUILayout.Label("Test Wave", EditorStyles.boldLabel);
 
         amountOfMechs = EditorGUILayout.IntField("Number of mechs", amountOfMechs);
@@ -38,20 +84,12 @@ public class Editor : EditorWindow
                 mech[i] = EditorGUILayout.ObjectField("Mech", mech[i], typeof(Object), true);
             }
         }
-
         
+        
+
+
         groupEnabled = EditorGUILayout.BeginToggleGroup("Optional settings", groupEnabled);
         //Add advanced settings here.
         EditorGUILayout.EndToggleGroup();
 
-        if (GUILayout.Button("Start Wave"))
-        {
-            var enemy = PoolManager.Instance.RequestEnemy();
-        }
-    }
-}
-
-public class ListWrapper<T> : UnityEngine.Object
-{
-    public List<T> objects = new List<T>();
-}
+        */
