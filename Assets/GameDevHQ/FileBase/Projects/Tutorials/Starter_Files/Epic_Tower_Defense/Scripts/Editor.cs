@@ -10,6 +10,7 @@ public class Editor : EditorWindow
     public int amountOfMechs;
     bool addedEnemies = false;
     private int _currentWave;
+    private GameObject testWave;
 
     [SerializeField] private List<Wave> _waves;
     [SerializeField] private GameObject _startPos;
@@ -38,6 +39,12 @@ public class Editor : EditorWindow
         {
             EditorCoroutines.EditorCoroutineExtensions.StartCoroutine(this, WaveTest());
         }
+
+        if (GUILayout.Button("Clear Wave"))
+        {
+            EditorCoroutines.EditorCoroutineExtensions.StopCoroutine(this, WaveTest());
+            Destroy(testWave);
+        }
     }
 
     IEnumerator WaveTest()
@@ -45,10 +52,12 @@ public class Editor : EditorWindow
         while (true)
         {
             var currentWave = _waves[_currentWave].sequence;
+            testWave = new GameObject("TestWave");
+            testWave.transform.position = _startPos.transform.position;
 
             foreach (var obj in currentWave)
             {
-                Instantiate(obj, _startPos.transform);
+                Instantiate(obj, testWave.transform);
                 yield return new WaitForSeconds(1.0f);
             }
 
@@ -64,32 +73,3 @@ public class Editor : EditorWindow
         }
     } 
 }
-
-        /*
-        GUILayout.Label("Test Wave", EditorStyles.boldLabel);
-
-        amountOfMechs = EditorGUILayout.IntField("Number of mechs", amountOfMechs);
-
-
-        if (GUILayout.Button("Add Enemies"))
-        {
-            mech = new Object[amountOfMechs];
-            addedEnemies = true;
-        }
-
-        if (amountOfMechs > 0 && addedEnemies)
-        {
-            for(int i = 0; i < amountOfMechs; i++)
-            {
-                mech[i] = EditorGUILayout.ObjectField("Mech", mech[i], typeof(Object), true);
-            }
-        }
-        
-        
-
-
-        groupEnabled = EditorGUILayout.BeginToggleGroup("Optional settings", groupEnabled);
-        //Add advanced settings here.
-        EditorGUILayout.EndToggleGroup();
-
-        */
